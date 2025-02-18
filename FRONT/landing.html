@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page - Finanzas</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Archivo CSS externo -->
+    <style>
+        /* Reset de márgenes, padding y box-sizing para un diseño más uniforme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Establece la fuente predeterminada para el cuerpo del documento */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        /* Estilos para el encabezado */
+        .header {
+            display: flex; /* Usa flexbox para alinear los elementos en una fila */
+            justify-content: space-between; /* Separa los elementos en los extremos */
+            align-items: center; /* Centra verticalmente los elementos */
+            background-color: #8BC34A; /* Color de fondo verde */
+            padding: 15px 50px; /* Espaciado interno */
+        }
+        
+        /* Estilos para el logo */
+        .logo h1 {
+            font-size: 28px; /* Tamaño del texto */
+            font-weight: bold; /* Negrita */
+            color: #333; /* Color del texto */
+            margin-right: auto; /* Empuja el logo hacia la izquierda */
+        }
+        
+        /* Contenedor del menú de navegación */
+        .nav {
+            display: flex; /* Flexbox para alineación */
+            align-items: center; /* Alinea el menú verticalmente con el botón */
+        }
+        
+        /* Estilos para la lista de navegación */
+        .nav ul {
+            list-style: none; /* Elimina los estilos de lista */
+            display: flex; /* Alineación en fila */
+            gap: 20px; /* Reduce la separación entre los elementos del menú */
+            margin-right: 20px; /* Espaciado entre el menú y el botón */
+        }
+        
+        /* Elementos individuales del menú */
+        .nav ul li {
+            display: inline; /* Asegura que los elementos estén en una línea */
+        }
+        
+        /* Estilos para los enlaces del menú */
+        .nav ul li a {
+            text-decoration: none; /* Elimina el subrayado */
+            color: #333; /* Color del texto */
+            font-weight: bold; /* Negrita */
+            font-size: 18px; /* Tamaño del texto */
+        }
+        
+        /* Estilos para el botón de gestión de finanzas */
+        .btn-finanzas {
+            background-color: #FF9800; /* Color de fondo naranja */
+            color: white; /* Color del texto blanco */
+            padding: 12px 20px; /* Espaciado interno */
+            text-decoration: none; /* Elimina el subrayado */
+            border-radius: 8px; /* Bordes redondeados */
+            font-weight: bold; /* Negrita */
+            font-size: 16px; /* Tamaño del texto */
+            text-align: center; /* Centra el texto */
+            flex-shrink: 0; /* Evita que el botón se reduzca si hay poco espacio */
+        }
+        
+        /* Estilos para la sección principal (hero section) */
+        .hero {
+            display: flex; /* Alinea los elementos horizontalmente */
+            align-items: center; /* Centra verticalmente los elementos */
+            justify-content: space-between; /* Separa el texto de la imagen */
+            background-color: #A3E635; /* Color de fondo similar al encabezado */
+            padding: 160px; /* Espaciado interno */
+        }
+        .hero-text {
+            max-width: 50%; /* Limita el ancho del texto */
+        }
+        .hero-text h1 {
+            font-size: 32px; /* Tamaño del título */
+            font-weight: bold; /* Negrita */
+            color: #333; /* Color del texto */
+            margin-bottom: 10px; /* Espaciado inferior */
+        }
+        .hero-text p {
+            font-size: 18px; /* Tamaño del párrafo */
+            color: #555; /* Color del texto */
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+        .btn-hero {
+            background-color: #D97706; /* Color de fondo naranja oscuro */
+            color: white; /* Color del texto blanco */
+            padding: 10px 20px; /* Espaciado interno */
+            text-decoration: none; /* Elimina el subrayado */
+            border-radius: 5px; /* Bordes redondeados */
+            font-weight: bold; /* Negrita */
+        }
+        .hero-image img {
+            max-width: 400px; /* Tamaño máximo de la imagen */
+        }
+
+
+        /* Estilos para la sección de servicios */
+.services {
+    text-align: center;
+    padding: 50px;
+    background-color: #F5F5F5;
+}
+
+.services h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.service-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.service {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+}
+
+.service img {
+    max-width: 200px;
+    margin-bottom: 15px;
+}
+
+.service h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.service p {
+    font-size: 16px;
+    color: #555;
+}
+/* Estilos para la sección de testimonios */
+.testimonials {
+    text-align: center;
+    padding: 50px;
+    background-color: #FFF;
+}
+
+.testimonials h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.testimonial-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.testimonial {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
+}
+
+.testimonial p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.testimonial h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Estilos para la sección de contacto */
+.contact {
+    text-align: center;
+    padding: 50px;
+    background-color: #F5F5F5;
+}
+
+.contact h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.contact form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 15px;
+}
+
+.contact label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.contact input,
+.contact textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-contact {
+    background-color: #D97706;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+/* Estilos para el footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer p {
+    font-size: 14px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons img {
+    width: 38px;
+    height: 38px;
+}
+
+    </style>
+    
+    
+</head>
+<body>
+    <!-- Encabezado de la página -->
+    <header class="header">
+        <!-- Logo de la empresa -->
+        <div class="logo">
+            <h1>FinanCorp</h1>
+        </div>
+        
+        <!-- Menú de navegación -->
+        <nav class="nav">
+            <ul>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#testimonios">Testimonios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <!-- Botón de llamada a la acción -->
+            <a href="#" class="btn-finanzas">Gestiona tus finanzas</a>
+        </nav>
+    </header>
+    
+    <!-- Sección principal -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Gestión organizada de letras y facturas</h1>
+            <p>Optimiza el flujo de caja de tu empresa con nuestra plataforma intuitiva. Controla, analiza y cobra más rápido.</p>
+            <a href="#" class="btn-hero">Comienza Ahora</a>
+        </div>
+        <div class="hero-image">
+            <img src="Landing page/Images/OSO-PANDA.png" alt="Ícono de billetera con dinero">
+        </div>
+    </section>
+
+    <!-- Sección de Servicios -->
+<section class="services">
+    <h2>Nuestros Servicios</h2>
+    <p>Explora el abanico de utilidades de nuestra plataforma y anímate a probarlas todas:</p>
+    <div class="service-container">
+        <div class="service">
+            <img src="Landing page/Images/imagen 1.png" alt="Registro de letras y facturas">
+            <h3>Registro de letras y facturas</h3>
+            <p>Administra de manera eficiente tus documentos financieros en un solo lugar.</p>
+        </div>
+        <div class="service">
+            <img src="Landing page/Images/Imagen 2.webp" alt="Gestión de carteras virtuales">
+            <h3>Gestión de carteras virtuales</h3>
+            <p>Controla y analiza tus cuentas con herramientas avanzadas.</p>
+        </div>
+        <div class="service">
+            <img src="Landing page/Images/Imgen 3.webp" alt="Cálculo de tasas y descuentos">
+            <h3>Cálculo de tasas y descuentos</h3>
+            <p>Optimiza tus transacciones con análisis de tasas y descuentos.</p>
+        </div>
+    </div>
+</section>
+<!-- Sección de Testimonios -->
+<section class="testimonials">
+    <h2>Testimonios</h2>
+    <div class="testimonial-container">
+        <div class="testimonial">
+            <p>"La plataforma me ha permitido gestionar mis facturas de manera eficiente y sin complicaciones."</p>
+            <h3>- Felipe Ríos</h3>
+        </div>
+        <div class="testimonial">
+            <p>"Herramienta fácil de usar y con grandes beneficios para la organización financiera de mi negocio."</p>
+            <h3>- Mariana Smith</h3>
+        </div>
+        <div class="testimonial">
+            <p>"Excelente servicio, me ha ayudado a optimizar mi flujo de caja y reducir costos operativos."</p>
+            <h3>- Arturo Sarmiento</h3>
+        </div>
+    </div>
+</section>
+<!-- Sección de Contacto -->
+<section class="contact" id="contacto">
+    <h2>Contáctanos</h2>
+    <p>Solicita más información sobre nuestros servicios.</p>
+    <form action="#" method="POST">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="telefono">Número telefónico:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit" class="btn-contact">Enviar solicitud</button>
+    </form>
+</section>
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 FinanCorp - Todos los derechos reservados</p>
+        <div class="social-icons">
+            <a href="#"><img src="Landing page/Iconos/FB.png" alt="Facebook"></a>
+            <a href="#"><img src="Landing page/Iconos/IG.png" alt="Instagram"></a>
+            <a href="#"><img src="Landing page/Iconos/WP.png" alt="WhatsApp"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
