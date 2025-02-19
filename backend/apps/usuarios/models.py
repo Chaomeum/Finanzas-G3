@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 # Create your models here.
 class Usuario(AbstractUser):
@@ -10,6 +10,9 @@ class Usuario(AbstractUser):
     password = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    groups = models.ManyToManyField(Group, related_name="usuario_groups", blank=True)
+    user_permissions = models.ManyToManyField(Permission, related_name="usuario_permissions", blank=True)
 
     def __str__(self):
         return self.username

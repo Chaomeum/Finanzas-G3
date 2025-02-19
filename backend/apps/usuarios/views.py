@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import RegistroUsuarioForm
+from django.http import HttpResponse
+
+def home(request):
+    return render(request, 'home.html')
+
 
 def registro(request):
     if request.method == 'POST':
