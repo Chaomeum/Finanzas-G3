@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seccion de registro</title>
+</head>
+<body>
+    <h1>Registro de usuario</h1>
+    <form action="/registro/" method="POST">
+        {% csrf_token %} <!-- Token de seguridad -->
+        {{ form.as_p }} <!-- Renderiza el formulario de registro -->
+        <button type="submit">Registrarse</button>
+    </form>
+    <a href="/login/">Iniciar sesión</a>
+</body>
+</html>
