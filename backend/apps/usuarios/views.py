@@ -1,70 +1,45 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
-# Creación de vistas
-# La vista de inicio es la página de inicio de la aplicación
+# Vista de la página principal
 def home_view(request):
     return render(request, 'landing.html')
 
-# La vista registro es la encargada de registrar un nuevo usuario
+# Vista de registro de usuario
 def signup_view(request):
-    # Si el método es GET, se muestra el formulario de registro
-    if request.method == 'GET':
-        form = UserCreationForm()
-        return render(request, 'signup.html', {'form': form})
-    # Si el método es POST, se procesa la información del formulario
-    # y se crea el usuario
-    else:
-        username = request.POST.get('username', '').strip()
-        password1 = request.POST.get('password1', '')
-        password2 = request.POST.get('password2', '')
-
-        if password1 != password2:
-            return render(request, 'signup.html', 
-                          {'form': UserCreationForm(), 
-                           'error': 'Las contraseñas no coinciden'})
-
-        if User.objects.filter(username=username).exists():
-            return render(request, 'signup.html', 
-                          {'form': UserCreationForm(), 
-                           'error': 'El usuario ya existe'})
-
-        try:
-            user = User.objects.create_user(username=username, password=password1)
-            user.save()
-            login(request, user)
-            return redirect('login')  # Verifica que el nombre de la URL en urls.py sea 'login'
-
-        except IntegrityError:
-            return render(request, 'signup.html', 
-                          {'form': UserCreationForm(), 
-                           'error': 'Error al crear el usuario'})        
-        
-# La vista login_view es la encargada de autenticar a un usuario
-def login_view(request):
-    form = AuthenticationForm()
-    # Si el método es POST, se procesa la información del formulario
-    # y se autentica al usuario
+    # Si el método de la petición es POST, se procesa el formulario de registro
     if request.method == 'POST':
-        username = request.POST.get('username', '').strip()
-        password = request.POST.get('password', '')
-        user = authenticate(request, username=username, password=password)
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            try:
+                user = form.save(commit=False)
+                user.set_password(form.cleaned_data['password1'])
+                user.save()            
+                login(request, user)
+                return redirect('home')  # Se debe redirigir a la URL de la página principal 'main' en lugar de 'home'
+            except IntegrityError:
+                return render(request, 'signup.html', 
+                                {'form': CustomUserCreationForm(), 
+                                'error': 'Error al crear el usuario'})
+    # Si el método de la petición es GET, se muestra el formulario de registro
+    return render(request, 'signup.html', {'form': CustomUserCreationForm()})
 
-        if user is not None:
+# Vista de inicio de sesión
+def login_view(request):
+    # Si el método de la petición es POST, se procesa el formulario de inicio de sesión
+    if request.method == 'POST':
+        form = CustomAuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
-            return redirect('home') # Se debe reemplazar el home (landing page) 
-                                    # por la página principal de la aplicación (main)
-        else:
-            return render(request, 'login.html', 
-                          {'form': form, 
-                           'error': 'Usuario o contraseña incorrectos'})
-    # Si el método es GET, se muestra el formulario de login
-    return render(request, 'login.html', {'form': form})
+            return redirect('home') # Se debe redirigir a la URL de la página principal 'main' en lugar de 'home'
+        return render(request, 'login.html', {'form': form})
+    # Si el método de la petición es GET, se muestra el formulario de inicio de sesión
+    return render(request, 'login.html', {'form': CustomAuthenticationForm()})
 
-# La vista logout_view es la encargada de cerrar la sesión de un usuario
+# Vista de cierre de sesión
 def logout_view(request):
     logout(request)
     return redirect('login')

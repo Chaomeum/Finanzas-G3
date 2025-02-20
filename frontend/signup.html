@@ -6,6 +6,9 @@
     <title>Seccion de registro</title>
 </head>
 <body>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
     <h1>Registro de usuario</h1>
     <form action="/registro/" method="POST">
         {% csrf_token %} <!-- Token de seguridad -->
