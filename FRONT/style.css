@@ -1,3 +1,11 @@
+/* Definir la fuente HEAVITAS */
+@font-face {
+    font-family: 'HEAVITAS';  /* Nombre de la fuente */
+    src: url('Landing page/fonts/Heavitas.ttf') format('truetype');  /* Ruta al archivo de la fuente */
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* Reset de márgenes, padding y box-sizing para un diseño más uniforme */
 * {
@@ -8,23 +16,24 @@
 
 /* Establece la fuente predeterminada para el cuerpo del documento */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Mulish', Arial, sans-serif;
+    background-color: #D6E0ED;
 }
-
 /* Estilos para el encabezado */
 .header {
     display: flex; /* Usa flexbox para alinear los elementos en una fila */
     justify-content: space-between; /* Separa los elementos en los extremos */
     align-items: center; /* Centra verticalmente los elementos */
-    background-color: #8BC34A; /* Color de fondo verde */
+    background-color: #97A0E8; /* Color de fondo morado */
     padding: 15px 50px; /* Espaciado interno */
 }
 
 /* Estilos para el logo */
 .logo h1 {
-    font-size: 28px; /* Tamaño del texto */
-    font-weight: bold; /* Negrita */
-    color: #333; /* Color del texto */
+    font-family: 'HEAVITAS', Arial, sans-serif;
+    font-size: 32px; /* Tamaño del texto */
+    font-weight: normal; /* Regular */
+    color: #372F2F; /* Color del texto */
     margin-right: auto; /* Empuja el logo hacia la izquierda */
 }
 
@@ -57,7 +66,7 @@ body {
 
 /* Estilos para el botón de gestión de finanzas */
 .btn-finanzas {
-    background-color: #FF9800; /* Color de fondo naranja */
+    background-color: #1E223B; /* Color de fondo naranja */
     color: white; /* Color del texto blanco */
     padding: 12px 20px; /* Espaciado interno */
     text-decoration: none; /* Elimina el subrayado */
@@ -71,129 +80,256 @@ body {
 /* Estilos para la sección principal (hero section) */
 .hero {
     display: flex; /* Alinea los elementos horizontalmente */
-    align-items: center; /* Centra verticalmente los elementos */
-    justify-content: space-between; /* Separa el texto de la imagen */
-    background-color: #A3E635; /* Color de fondo similar al encabezado */
-    padding: 160px; /* Espaciado interno */
+    justify-content: center; /* Separa el texto de la imagen */
+    align-items: center; /* Centra verticalmente los elementos */   
+    height: 420px; /* Altura de la sección */
+    background-color: #97A0E8; /* Color de fondo similar al encabezado */
+    padding: 150px; /* Espaciado interno */
+    flex-shrink: 0; /* Evita que la sección se reduzca */
+    gap: 40px;  /* Espaciado entre la imagen y el texto */
+    align-self: stretch; /* Ajusta la altura de la sección */
 }
+
 .hero-text {
-    max-width: 50%; /* Limita el ancho del texto */
+    display: flex;
+    width: 573px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
 }
 .hero-text h1 {
-    font-size: 32px; /* Tamaño del título */
-    font-weight: bold; /* Negrita */
-    color: #333; /* Color del texto */
+    font-family: 'Mulish', Arial, sans-serif;
+    font-size: 60px; /* Tamaño del título */
+    font-weight: 800; /* Negrita */
+    color: #000000; /* Color del texto */
     margin-bottom: 10px; /* Espaciado inferior */
 }
 .hero-text p {
-    font-size: 18px; /* Tamaño del párrafo */
-    color: #555; /* Color del texto */
-    margin-bottom: 20px; /* Espaciado inferior */
+    color: rgba(0, 0, 0, 0.75);
+    font-family: Mulish;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 .btn-hero {
-    background-color: #D97706; /* Color de fondo naranja oscuro */
+    background-color: #1E223B; /* Color de fondo naranja oscuro */
     color: white; /* Color del texto blanco */
     padding: 10px 20px; /* Espaciado interno */
     text-decoration: none; /* Elimina el subrayado */
     border-radius: 5px; /* Bordes redondeados */
-    font-weight: bold; /* Negrita */
+    font-weight: semibold; /* Negrita */
 }
+
 .hero-image img {
     max-width: 400px; /* Tamaño máximo de la imagen */
 }
 
+.waves {
+    width: 100%; /* Ancho de la imagen */
+    height: auto; /* Ajusta la altura según la imagen */
+    display: block; /* Esto elimina cualquier margen extra debajo de la imagen */
+    margin-top: 0;
+    margin-bottom: 0; /* Elimina el margen inferior si lo hay */
+}
+
+.waves2 {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+}   
 
 /* Estilos para la sección de servicios */
-.services {
-text-align: center;
-padding: 50px;
-background-color: #F5F5F5;
+.services { /*Toda la sección de services*/
+    /*display: inline-flex*/
+    display: flex;
+    padding: 0px 150px; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.services h2 {
-font-size: 28px;
-font-weight: bold;
-color: #333;
-margin-bottom: 20px;
+.titulo-services { /*Seccion dentro de services para los titulos*/
+    display: flex;
+    width: 1140px;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
 }
 
-.service-container {
-display: flex;
-justify-content: center;
-gap: 40px;
+.titulo-services-text {/*Contenedor de los texto de la sección de services*/
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1 0 0;
 }
 
-.service {
-background: white;
-padding: 20px;
-border-radius: 8px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-max-width: 300px;
-text-align: center;
+.titulo-services-text h2 {
+    align-self: stretch;
+    color: #000;
+    font-size: 45px;
+    font-weight: 800;
+    font-family: Mulish;    
+    font-style: normal;
+    line-height: 48px; /* 106.667% */
 }
 
-.service img {
-max-width: 200px;
-margin-bottom: 15px;
+.titulo-services-text p {
+    align-self: stretch;
+    color: #000;
+    font-family: Mulish;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 109.091% */
 }
 
-.service h3 {
-font-size: 20px;
-margin-bottom: 10px;
-color: #333;
+.service-container { /*Primer contenedor services*/
+    display: flex;
+    width: 1140px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
 }
 
-.service p {
+.service-content { /*Contenido del contenedor services*/
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    align-self: stretch;
+}
+
+.service-card { /*Contenedor de tarjetas de services*/
+    display: flex;
+    height: 412px;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 0;
+}
+
+.service-card-img{
+    display: flex;
+    height: 340px;
+    padding: 32px 7.516px 32px 12px;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    align-self: stretch;
+}
+
+/*.service-card-img img {
+    width: 327.15px; 
+    height: 276px; 
+}*/
+
+.service-card-text {
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+}
+
+.service-card-text h3 {
+    align-self: stretch;
+    color: #000;
+    text-align: center;
+    font-family: Mulish;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 88.889% */
+}
+
+.service-card p {
 font-size: 16px;
 color: #555;
 }
 /* Estilos para la sección de testimonios */
 .testimonials {
-text-align: center;
-padding: 50px;
-background-color: #FFF;
+    height: 330px;
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color: #97A0E8;
 }
 
-.testimonials h2 {
-font-size: 28px;
-font-weight: bold;
-color: #333;
-margin-bottom: 20px;
+.testimonios-titulos {
+    display: flex;
+    width: 1140px;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.testimonios-titulos-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1 0 0;
+}
+
+.testimonios-titulos-text h2 {
+    align-self: stretch;
+    color: #000;
+    font-size: 45px;
+    font-weight: 800;
+    font-family: Mulish;    
+    font-style: normal;
+    line-height: 48px; /* 106.667% */
+}
+
+.testimonios-titulos-text p {
+    align-self: stretch;
+    color: #000;
+    font-family: Mulish;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 109.091% */
 }
 
 .testimonial-container {
-display: flex;
-justify-content: center;
-gap: 40px;
-margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
 }
 
-.testimonial {
-background: #F5F5F5;
-padding: 20px;
-border-radius: 8px;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-max-width: 300px;
-text-align: center;
+.testimonial-box {
+    background: #F5F5F5;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    text-align: center;
 }
 
-.testimonial p {
-font-size: 16px;
-color: #555;
-margin-bottom: 10px;
+.testimonial-box p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
 }
 
-.testimonial h3 {
-font-size: 18px;
-color: #333;
-font-weight: bold;
+.testimonial-box h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
 }
 
 /* Estilos para la sección de contacto */
 .contact {
-text-align: center;
-padding: 50px;
-background-color: #F5F5F5;
+    padding: 50px; 
 }
 
 .contact h2 {
@@ -204,42 +340,60 @@ margin-bottom: 20px;
 }
 
 .contact p {
-font-size: 16px;
-color: #555;
-margin-bottom: 20px;
+    text-align: center;
+    font-size: 27px;
+    color: #000;
+    margin-bottom: 20px;
+    font-family: Mulish;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px; /* 88.889% */
 }
 
 .contact form {
-display: flex;
-flex-direction: column;
-max-width: 400px;
-margin: 0 auto;
-gap: 15px;
+    align-items: center;
+    border: #000 1px solid;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    max-width: 506px;
+    margin: 0 auto;
+    gap: 15px; 
+    height: 625px;
 }
 
 .contact label {
-font-size: 16px;
-font-weight: bold;
-color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
 }
 
-.contact input,
+.contact input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 .contact textarea {
-width: 100%;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
-
+    
 .btn-contact {
-background-color: #D97706;
-color: white;
-padding: 10px 20px;
-text-decoration: none;
-border-radius: 5px;
-font-weight: bold;
-cursor: pointer;
-border: none;
+    background-color: #1E223B;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    width: 200px;
 }
 
 /* Estilos para el footer */
@@ -256,16 +410,13 @@ flex-direction: column;
 align-items: center;
 gap: 10px;
 }
-
 .footer p {
 font-size: 14px;
 }
-
 .social-icons {
 display: flex;
 gap: 15px;
 }
-
 .social-icons img {
 width: 38px;
 height: 38px;
