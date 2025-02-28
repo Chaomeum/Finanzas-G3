@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registrarse - CarteraPro</title>
+        <title>Crear Cartera - CarteraPro</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="login.css"> <!-- CSS específico para la página de login -->
     </head>
 
-    <body class="register-body">
+    <body class="newCartera-body">
         <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
         <header class="header">
             <!-- Logo de la empresa -->
@@ -30,30 +30,41 @@
         </header>
         
         <!-- Contenedor del formulario de login -->
-        <div class="register-container">
-            <div class="register-box">
-                <div class="register-header">
-                    <h2>Registro</h2>
+        <div class="newCartera-container">
+            <div class="newCartera-box">
+                <div class="newCartera-header">
+                    <h2>Nueva Cartera</h2>
                 </div>
-                <div class="register-form">
+                <div class="newCartera-form">
                     <form action="#" method="POST">
                         <div class="form-group">
-                            <input type="text" id="nombre" name="nombre" placeholder="Nombres" required>
+                            <select id="tipoTasa" name="tipoTasa" required>
+                                <option value="" disabled selected>Tipo de tasa</option>
+                                <option value="TNA">TNA</option>
+                                <option value="TEA">TEA</option>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="apellido" name="apellido" placeholder="Apellidos" required>
+                            <input type="text" id="tasa" name="tasa" placeholder="Tasa %" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+                            <input type="text" id="plazoTasa" name="plazoTasa" placeholder="Plazo de tasa" required>
                         </div>
                         <div class="form-group">
-                            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                            <input type="text" id="capitalizacion" name="capitalizacion" placeholder="Capitalización" required>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn-registrar">Registrar</button>
+                            <select id="moneda" name="moneda" required>
+                                <option value="" disabled selected>Unidad monetaria</option>
+                                <option value="PEN">PEN</option>
+                                <option value="USD">USD</option>
+                            </select>
                         </div>
-                        <div class="form-links">
-                            <a href="login.html" class="login-link">Ya tengo cuenta</a>
+                        <div class="form-group">
+                            <input type="text" id="documentos" name="documentos" placeholder="Seleccionar documentos" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn-registrarCartera">Registrar cartera</button>
                         </div>
                     </form>
                 </div>

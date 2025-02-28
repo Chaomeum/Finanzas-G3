@@ -1,18 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina de Inicio de Sesion</title>
-</head>
-<body>
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
-    <h1>Iniciar sesion</h1>
-    <form action="/login/" method="POST">
-        {% csrf_token %} <!-- Gestiona el Token de seguridad -->
-        {{ form.as_p }} <!-- Renderiza el formulario de inicio de sesion -->
-        <button type="submit">Iniciar sesion</button>
-</body>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar Sesión - CarteraPro</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
+        <link rel="stylesheet" href="login.css"> <!-- CSS específico para la página de login -->
+    </head>
+
+    <body class="login-body">
+        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+        <header class="header">
+            <!-- Logo de la empresa -->
+            <div class="logo">
+                <!-- <h1>CarteraPro</h1> -->
+                <a href="landing.html"><h1>CarteraPro</h1></a></li>
+            </div>
+            
+            <!-- Menú de navegación -->
+            <nav class="nav">
+                <ul>
+                    <li><a href="#">Mi cuenta</a></li>
+                    <li><a href="#">Registros</a></li>
+                    <li><a href="#">Carteras</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <!-- Contenedor del formulario de login -->
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <h2>Iniciar Sesión</h2>
+                </div>
+                <div class="login-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
+                        </div>
+                        <div class="form-group">
+                            <!--- <button type="submit" class="btn-ingresar">Ingresar</button> --->
+                            <button type="submit" class="btn-ingresar"><a href="account.html">Ingresar</a></button>
+                        </div>
+                        <div class="form-links">
+                            <a href="#" class="forgot-link">Olvidé mi contraseña</a>
+                            <a href="signup.html" class="register-link">Registrarme</a>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
