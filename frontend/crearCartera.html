@@ -24,7 +24,7 @@
                 <ul>
                     <li><a href="#">Mi cuenta</a></li>
                     <li><a href="#">Registros</a></li>
-                    <li><a href="#">Carteras</a></li>
+                    <li><a href="/carteras.html">Carteras</a></li>
                 </ul>
             </nav>
         </header>
@@ -61,7 +61,42 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="documentos" name="documentos" placeholder="Seleccionar documentos" required>
+                            <div class="documento-selector">
+                                <input type="text" id="documentosDisplay" placeholder="Seleccionar documentos" readonly>
+                                <button type="button" id="addDocumentoBtn" class="btn-add-documento">Agregar</button>
+                            </div>
+                            <div id="documentosList" class="documentos-list-container"></div>
+                            
+                            <!-- Modal para seleccionar documentos -->
+                            <div id="documentoModal" class="documento-modal">
+                                <div class="documento-modal-content">
+                                    <div class="documento-modal-header">
+                                        <h3>Seleccionar Documento</h3>
+                                        <span class="close-modal">&times;</span>
+                                    </div>
+                                    <div class="documento-modal-body">
+                                        <div class="documento-search">
+                                            <input type="text" id="modalSearch" placeholder="Buscar documento...">
+                                        </div>
+                                        <div class="documento-options">
+                                            <!-- Aquí se llenarían dinámicamente los documentos desde la base de datos -->
+                                            <div class="documento-option" data-id="1" data-type="Factura" data-number="F001-123">
+                                                Factura #F001-123
+                                            </div>
+                                            <div class="documento-option" data-id="2" data-type="Letra" data-number="L002-456">
+                                                Letra de cambio #L002-456
+                                            </div>
+                                            <div class="documento-option" data-id="3" data-type="Factura" data-number="F001-789">
+                                                Factura #F001-789
+                                            </div>
+                                            <!-- Más opciones aquí -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Campo oculto para enviar los IDs de documentos -->
+                            <input type="hidden" id="documentosIds" name="documentos" value="">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn-registrarCartera">Registrar cartera</button>
@@ -70,5 +105,6 @@
                 </div>
             </div>
         </div>
+        <script src="/script.js"></script>
     </body>
 </html>

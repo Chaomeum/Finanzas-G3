@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registrar Letra de Cambio - CarteraPro</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="login.css">
+        <link rel="stylesheet" href="registroDocumentos.css">
+    </head>
+
+    <body class="letra-body">
+        <!-- Encabezado de la página -->
+        <header class="header">
+            <!-- Logo de la empresa -->
+            <div class="logo">
+                <a href="landing.html"><h1>CarteraPro</h1></a>
+            </div>
+            
+            <!-- Menú de navegación -->
+            <nav class="nav">
+                <ul>
+                    <li><a href="account.html">Mi cuenta</a></li>
+                    <li><a href="#">Registros</a></li>
+                    <li><a href="carteras.html">Carteras</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <h1 class="page-title">Registrar Nueva Letra de Cambio</h1>
+        
+        <div class="main-container">
+            <!-- Contenedor del formulario de letra de cambio -->
+            <div class="documento-container">
+                <div class="documento-header">
+                    <h2>Letra de Cambio</h2>
+                </div>
+                <div class="documento-box">
+                    <div class="documento-form">
+                        <form action="#" method="POST" id="letraForm">
+                            <div class="form-group">
+                                <input type="number" id="valorNominal" name="valorNominal" placeholder="Valor Nominal" required step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <input type="date" id="fechaPago" name="fechaPago" placeholder="Fecha de pago" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" id="fechaVencimiento" name="fechaVencimiento" placeholder="Fecha de vencimiento" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="beneficiario" name="beneficiario" placeholder="Beneficiario" required>
+                            </div>
+                            <div class="form-group">
+                                <select id="moneda" name="moneda" required>
+                                    <option value="" disabled selected>Unidad monetaria</option>
+                                    <option value="PEN">PEN</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn-registrar">Registrar letra</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botón para navegar a Registro de Factura -->
+            <div class="navigation-area">
+                <a href="registroFactura.html" class="navigation-button">
+                    <span>Registrar nueva factura</span>
+                    <div class="arrow-circle">
+                        &#8594;
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <script src="script.js"></script>
+        <script src="registroLetra.js"></script>
+    </body>
+</html>
