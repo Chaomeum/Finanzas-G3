@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 3. Obtener la información de la cartera
         const carteras = JSON.parse(localStorage.getItem('carteras') || '[]');
         const carteraActual = carteras.find(c => c.id === carteraId);
-        
+
         if (!carteraActual) {
             // Si no se encuentra la cartera, mostrar tabla vacía
             documentosCartera = [];
