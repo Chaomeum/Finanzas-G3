@@ -1,0 +1,81 @@
+/* Estilos específicos para la página de login */
+.login-body {
+    background-color: #A0AFF0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-body .header {
+    background-color: #1E223B;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.login-body .logo h1 {
+    color: white;
+}
+
+.login-body .header .logo a {
+    text-decoration: none;
+}
+
+.login-body .nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.login-box {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    overflow: hidden;
+}
+
+.login-header {
+    background-color: #0B0B0B;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.login-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.login-form {
+    padding: 35px;
+}
+
+.btn-ingresar {
+    width: 100%;
+    padding: 15px;
+    background-color: #0B0B0B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Mulish', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-group .btn-ingresar a {
+    text-decoration: none;
+    color: white;
+}
+
+.btn-ingresar:hover {
+    background-color: #333;
+}

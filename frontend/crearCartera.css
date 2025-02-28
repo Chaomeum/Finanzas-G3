@@ -1,0 +1,193 @@
+/* Estilos específicos para la página de crear cartera */
+.newCartera-body {
+    background-color: #A0AFF0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.newCartera-body .header {
+    background-color: #1E223B;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.newCartera-body .logo h1 {
+    color: white;
+}
+
+.newCartera-body .header .logo a {
+    text-decoration: none;
+}
+
+.newCartera-body .nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.newCartera-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.newCartera-box {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    overflow: hidden;
+}
+
+.newCartera-header {
+    background-color: #0B0B0B;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.newCartera-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.newCartera-form {
+    padding: 35px;
+}
+
+.btn-registrarCartera {
+    width: 100%;
+    padding: 15px;
+    background-color: #0B0B0B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Mulish', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-registrarCartera:hover {
+    background-color: #333;
+}
+
+/* Estilos para el selector de documentos con modal */
+.documento-selector {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.documento-selector input {
+    flex-grow: 1;
+    cursor: default;
+}
+
+.btn-add-documento {
+    padding: 15px;
+    background-color: #1E223B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.documentos-list-container {
+    margin-top: 10px;
+}
+
+.documento-item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.documento-info {
+    flex-grow: 1;
+}
+
+.btn-remove-documento {
+    background: none;
+    border: none;
+    color: #ff0000;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* Estilos para el modal */
+.documento-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+.documento-modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 0;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.documento-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #1E223B;
+    color: white;
+}
+
+.close-modal {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.documento-modal-body {
+    padding: 15px;
+}
+
+.documento-search {
+    margin-bottom: 15px;
+}
+
+.documento-search input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.documento-options {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.documento-option {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.documento-option:hover {
+    background-color: #f5f5f5;
+}

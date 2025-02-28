@@ -1,0 +1,136 @@
+/* Estilos compartidos para las páginas de registro de documentos (facturas y letras) */
+.factura-body,
+.letra-body {
+    background-color: #A0AFF0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.factura-body .header,
+.letra-body .header {
+    background-color: #1E223B;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.factura-body .logo h1,
+.letra-body .logo h1 {
+    color: white;
+}
+
+.factura-body .header .logo a,
+.letra-body .header .logo a {
+    text-decoration: none;
+}
+
+.factura-body .nav ul li a,
+.letra-body .nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Títulos de página */
+.page-title {
+    color: #000;
+    font-size: 30px;
+    font-weight: 800;
+    text-shadow: 4px 4px 3px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    margin: 20px 30px;
+    text-transform: uppercase;
+}
+
+/* Contenedor principal que alberga al formulario y botón de navegación */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    flex-grow: 1;
+}
+
+/* Contenedor de formulario */
+.documento-container {
+    width: 340px;
+    position: relative;
+}
+
+.documento-box {
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.documento-header {
+    background-color: #0B0B0B;
+    color: white;
+    padding: 12px 0;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+}
+
+.documento-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Formularios */
+.documento-form .form-group {
+    margin-bottom: 15px;
+}
+
+.btn-registrar {
+    width: 100%;
+    padding: 12px;
+    background-color: #0B0B0B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Mulish', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-registrar:hover {
+    background-color: #333;
+}
+
+/* Botones de navegación */
+.navigation-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 25px;
+    padding: 15px 25px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.navigation-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-circle {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 2px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
