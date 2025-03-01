@@ -10,8 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', function() {
             const row = this.closest('tr');
             const id = row.cells[0].textContent;
-            // Redireccionar a la página de ver cartera
-            window.location.href = 'verCartera.html?id=' + id;
+            
+            // CORRECCIÓN: Asegurar que el ID se pasa correctamente en la URL
+            console.log("Abriendo cartera ID:", id);
+            window.location.href = 'verCartera.html?id=' + encodeURIComponent(id);
         });
     });
     
@@ -63,8 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
         btnAbrir.addEventListener('click', function() {
             const row = this.closest('tr');
             const cartId = row.cells[0].textContent;
-            // Redireccionar a la página de ver cartera
-            window.location.href = 'verCartera.html?id=' + cartId;
+            
+            // CORRECCIÓN: Asegurar que el ID se pasa correctamente en la URL
+            console.log("Abriendo cartera ID:", cartId);
+            window.location.href = 'verCartera.html?id=' + encodeURIComponent(cartId);
         });
         
         btnEliminar.addEventListener('click', function() {

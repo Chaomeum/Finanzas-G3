@@ -3,10 +3,47 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Obtener el ID de la cartera de la URL
     const urlParams = new URLSearchParams(window.location.search);
-    const carteraId = urlParams.get('id') || '#1';
+    let carteraId = urlParams.get('id');
     
-    // Actualizar el título de la cartera
-    document.getElementById('carteraTitulo').textContent = `CARTERA ${carteraId}`;
+    console.log("ID original de URL:", carteraId);
+    
+    // Normalizar el ID (asegurarnos que tenga # al inicio)
+    if (carteraId) {
+        if (!carteraId.startsWith('#')) {
+            carteraId = '#' + carteraId;
+        }
+    } else {
+        carteraId = '#1'; // Valor por defecto
+    }
+    
+    console.log("ID normalizado:", carteraId);
+    
+    // Buscar la cartera en localStorage
+    const carteras = JSON.parse(localStorage.getItem('carteras') || '[]');
+    console.log("Carteras disponibles:", carteras);
+    
+    // Intentar encontrar la cartera por ID exacto
+    let carteraActual = carteras.find(c => c.id === carteraId);
+    
+    // Si no la encontramos, intentar por número
+    if (!carteraActual) {
+        const carteraNumero = carteraId.replace(/\D/g, ''); // Extraer solo números
+        carteraActual = carteras.find(c => 
+            c.id.replace(/\D/g, '') === carteraNumero || 
+            c.nombre.includes(carteraNumero)
+        );
+    }
+    
+    console.log("Cartera encontrada:", carteraActual);
+    
+    // Actualizar el título con el nombre de la cartera
+    if (carteraActual && carteraActual.nombre) {
+        document.getElementById('carteraTitulo').textContent = carteraActual.nombre;
+        console.log("Título establecido a:", carteraActual.nombre);
+    } else {
+        document.getElementById('carteraTitulo').textContent = `CARTERA ${carteraId}`;
+        console.log("Usando ID como título:", carteraId);
+    }
     
     // Variables para la paginación
     let currentPage = 1;
@@ -68,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('paginationInfo').textContent = '0 to 0 of 0';
             return;
         }
+        
         // Calcular los índices de inicio y fin para la paginación
         const startIndex = (currentPage - 1) * rowsPerPage;
         const endIndex = Math.min(startIndex + rowsPerPage, documentosCartera.length);
@@ -234,10 +272,21 @@ document.addEventListener('DOMContentLoaded', function() {
         // 2. Obtener todas las letras
         const letras = JSON.parse(localStorage.getItem('letras') || '[]');
         
-        // 3. Obtener la información de la cartera
-        const carteras = JSON.parse(localStorage.getItem('carteras') || '[]');
-        const carteraActual = carteras.find(c => c.id === carteraId);
-
+        // 3. Usar la carteraActual que ya encontramos antes
+        // Si la cartera no se encontró anteriormente, intentamos buscarla nuevamente
+        if (!carteraActual) {
+            carteraActual = carteras.find(c => c.id === carteraId);
+            
+            // Si aún no la encontramos, buscar por otros métodos
+            if (!carteraActual) {
+                const carteraNumero = carteraId.replace(/\D/g, '');
+                carteraActual = carteras.find(c => 
+                    c.id.replace(/\D/g, '') === carteraNumero || 
+                    c.nombre.includes(carteraNumero)
+                );
+            }
+        }
+        
         if (!carteraActual) {
             // Si no se encuentra la cartera, mostrar tabla vacía
             documentosCartera = [];
@@ -266,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     tipoTasa: carteraActual.datos.tipoTasa || "Nominal",
                     plazoTasa: carteraActual.datos.plazoTasa || "360",
                     periodoCap: carteraActual.datos.capitalizacion || "-",
-                    fechaVencimiento: window.formatearFecha(factura.fechaPago),
+                    fechaVencimiento: formatearFecha(factura.fechaPago),
                     cliente: factura.cliente,
                     moneda: factura.moneda
                 });
@@ -283,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     tipoTasa: carteraActual.datos.tipoTasa || "Nominal",
                     plazoTasa: carteraActual.datos.plazoTasa || "360",
                     periodoCap: carteraActual.datos.capitalizacion || "-",
-                    fechaVencimiento: window.formatearFecha(letra.fechaVencimiento),
+                    fechaVencimiento: formatearFecha(letra.fechaVencimiento),
                     cliente: letra.beneficiario,
                     moneda: letra.moneda
                 });
@@ -296,5 +345,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 7. Cargar la tabla con los documentos de la cartera
         cargarTabla();
+    }
+    
+    // Función auxiliar para formatear fechas
+    function formatearFecha(fechaStr) {
+        if (!fechaStr) return 'N/A';
+        
+        const fecha = new Date(fechaStr);
+        if (isNaN(fecha.getTime())) return fechaStr;
+        
+        return fecha.toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
     }
 });
