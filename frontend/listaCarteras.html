@@ -16,8 +16,7 @@
   </head>
   <body class="cartera-body">
     <!-- Header con navegación -->
-    {% include 'header.html' %}
-
+    {% include 'header.html' %} {% csrf_token %}
     <!-- Contenedor principal -->
     <div class="cartera-container">
       <div class="cartera-header">
@@ -36,12 +35,34 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Las carteras se cargarán dinámicamente desde JavaScript -->
+            {% for cartera in carteras %}
+            <tr>
+              <td class="id-column">{{ cartera.id }}</td>
+              <td class="nombre-column">{{ cartera.nombre }}</td>
+              <td class="opciones-column">
+                <!-- Se debe manejar dentro de ver_carteras sin redireccionar-->
+                <a
+                  href="{% url 'editar_cartera' cartera.id %}"
+                  class="btn-editar"
+                  >Editar</a
+                > 
+                <a
+                  href="{% url 'eliminar_cartera' cartera.id %}"
+                  class="btn-eliminar"
+                  >Eliminar</a
+                >
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3">No hay carteras registradas.</td>
+            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
     </div>
 
-    <script src="/listaCarteras.js"></script>
+    <!-- <script src="/listaCarteras.js"></script> -->
   </body>
 </html>

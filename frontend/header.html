@@ -15,7 +15,7 @@
     <ul>
       {% if user.is_authenticated %}
       <li><a href="{% url 'cuenta' %}">Mi cuenta</a></li>
-      <li><a href="/registroFactura.html">Registros</a></li>
+      <li><a href="{% url 'crear_factura' %}">Registros</a></li>
       <li><a href="{% url 'opcion_carteras' %}">Carteras</a></li>
       <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
       {% else %}

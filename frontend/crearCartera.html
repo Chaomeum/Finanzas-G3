@@ -30,9 +30,10 @@
           <h2>Nueva Cartera</h2>
         </div>
         <div class="newCartera-form">
-          <form action="#" method="POST">
+          <form action="{% url 'crear_cartera' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
-              <select id="tipoTasa" name="tipoTasa" required>
+              <select id="tipo_tasa" name="tipo_tasa" required>
                 <option value="" disabled selected>Tipo de tasa</option>
                 <option value="TNA">TNA</option>
                 <option value="TEA">TEA</option>
@@ -50,15 +51,6 @@
             <div class="form-group">
               <input
                 type="text"
-                id="plazoTasa"
-                name="plazoTasa"
-                placeholder="Plazo de tasa"
-                required
-              />
-            </div>
-            <div class="form-group">
-              <input
-                type="text"
                 id="capitalizacion"
                 name="capitalizacion"
                 placeholder="Capitalización"
@@ -66,83 +58,12 @@
               />
             </div>
             <div class="form-group">
-              <select id="moneda" name="moneda" required>
-                <option value="" disabled selected>Unidad monetaria</option>
-                <option value="PEN">PEN</option>
-                <option value="USD">USD</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <div class="documento-selector">
-                <input
-                  type="text"
-                  id="documentosDisplay"
-                  placeholder="Seleccionar documentos"
-                  readonly
-                />
-                <button
-                  type="button"
-                  id="addDocumentoBtn"
-                  class="btn-add-documento"
-                >
-                  Agregar
-                </button>
-              </div>
-              <div id="documentosList" class="documentos-list-container"></div>
-
-              <!-- Modal para seleccionar documentos -->
-              <div id="documentoModal" class="documento-modal">
-                <div class="documento-modal-content">
-                  <div class="documento-modal-header">
-                    <h3>Seleccionar Documento</h3>
-                    <span class="close-modal">&times;</span>
-                  </div>
-                  <div class="documento-modal-body">
-                    <div class="documento-search">
-                      <input
-                        type="text"
-                        id="modalSearch"
-                        placeholder="Buscar documento..."
-                      />
-                    </div>
-                    <div class="documento-options">
-                      <!-- Aquí se llenarían dinámicamente los documentos desde la base de datos -->
-                      <div
-                        class="documento-option"
-                        data-id="1"
-                        data-type="Factura"
-                        data-number="F001-123"
-                      >
-                        Factura #F001-123
-                      </div>
-                      <div
-                        class="documento-option"
-                        data-id="2"
-                        data-type="Letra"
-                        data-number="L002-456"
-                      >
-                        Letra de cambio #L002-456
-                      </div>
-                      <div
-                        class="documento-option"
-                        data-id="3"
-                        data-type="Factura"
-                        data-number="F001-789"
-                      >
-                        Factura #F001-789
-                      </div>
-                      <!-- Más opciones aquí -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Campo oculto para enviar los IDs de documentos -->
               <input
-                type="hidden"
-                id="documentosIds"
-                name="documentos"
-                value=""
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Nombre de la cartera"
+                required
               />
             </div>
             <div class="form-group">
@@ -150,10 +71,17 @@
                 Registrar cartera
               </button>
             </div>
+            {% if messages %}
+            <div class="messages">
+              {% for message in messages %}
+              <p class="{{ message.tags }}">{{ message }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
           </form>
         </div>
       </div>
     </div>
-    <script src="/crearCartera.js"></script>
+    <!-- <script src="/crearCartera.js"></script> -->
   </body>
 </html>
