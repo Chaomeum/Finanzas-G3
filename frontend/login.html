@@ -1,60 +1,53 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Iniciar Sesión - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
-        <link rel="stylesheet" href="login.css"> <!-- CSS específico para la página de login -->
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Reutilizamos el archivo CSS principal -->
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+    <!-- CSS específico para la página de login -->
+  </head>
 
-    <body class="login-body">
-        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <!-- <h1>CarteraPro</h1> -->
-                <a href="landing.html"><h1>CarteraPro</h1></a></li>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="#">Mi cuenta</a></li>
-                    <li><a href="#">Registros</a></li>
-                    <li><a href="#">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <!-- Contenedor del formulario de login -->
-        <div class="login-container">
-            <div class="login-box">
-                <div class="login-header">
-                    <h2>Iniciar Sesión</h2>
-                </div>
-                <div class="login-form">
-                    <form action="#" method="POST">
-                        <div class="form-group">
-                            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
-                        </div>
-                        <div class="form-group">
-                            <!--- <button type="submit" class="btn-ingresar">Ingresar</button> --->
-                            <button type="submit" class="btn-ingresar"><a href="account.html">Ingresar</a></button>
-                        </div>
-                        <div class="form-links">
-                            <a href="#" class="forgot-link">Olvidé mi contraseña</a>
-                            <a href="signup.html" class="register-link">Registrarme</a>                            
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <body class="login-body">
+    <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+    {% include 'header.html' %}
+
+    <!-- Contenedor del formulario de login -->
+    <div class="login-container">
+      <div class="login-box">
+        <div class="login-header">
+          <h2>Iniciar Sesión</h2>
         </div>
-    </body>
+        <div class="login-form">
+          <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              {{ form.as_p }}
+              <!-- Renderiza el formulario de login -->
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn-ingresar">Ingresar</button>
+            </div>
+            <div class="form-links">
+              <a href="#" class="forgot-link">Olvidé mi contraseña</a>
+              <a href="{% url 'registro' %}" class="register-link"
+                >Registrarme</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

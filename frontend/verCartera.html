@@ -1,85 +1,78 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ver Cartera - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="login.css">
-        <link rel="stylesheet" href="verCartera.css">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ver Cartera - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+    <link rel="stylesheet" href="{% static 'verCartera.css' %}" />
+  </head>
 
-    <body class="cartera-body">
-        <!-- Encabezado de la página -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="/account.html">Mi cuenta</a></li>
-                    <li><a href="/registroFactura.html">Registros</a></li>
-                    <li><a href="/carteras.html">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <div class="cartera-container">
-            <!-- Título de la cartera -->
-            <h1 class="cartera-title" id="carteraTitulo">CARTERA #1</h1>
-            
-            <!-- Acciones de la cartera -->
-            <div class="cartera-actions">
-                <div class="tcea-display" id="tceaDisplay">TCEA: %</div>
-                <a href="#" class="btn-nuevo-registro" id="btnNuevoRegistro">Nuevo registro</a>
-            </div>
-            
-            <!-- Tabla de documentos -->
-            <div class="cartera-table-container">
-                <table class="cartera-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tipo de registro</th>
-                            <th>Monto</th>
-                            <th>Tasa</th>
-                            <th>Tipo de tasa</th>
-                            <th>Plazo de tasa (en días)</th>
-                            <th>Período de capitalización (en días)</th>
-                            <th>Fecha de vencimiento</th>
-                            <th>Cliente / Beneficiario</th>
-                            <th>Unidad monetaria</th>
-                        </tr>
-                    </thead>
-                    <tbody id="carteraTableBody">
-                        <!-- Los datos se cargarán dinámicamente con JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-            
-            <!-- Paginación -->
-            <div class="pagination">
-                <button id="firstPage">&lt;&lt;</button>
-                <button id="prevPage">&lt;</button>
-                <span class="pagination-info" id="paginationInfo">1 to 10 of 50</span>
-                <button id="nextPage">&gt;</button>
-                <button id="lastPage">&gt;&gt;</button>
-                <select id="rowsPerPage">
-                    <option value="5">5</option>
-                    <option value="10" selected>10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-        </div>
-        
-        <script src="script.js"></script>
-        <script src="verCartera.js"></script>
-    </body>
+  <body class="cartera-body">
+    <!-- Encabezado de la página -->
+    {% include 'header.html' %}
+
+    <div class="cartera-container">
+      <!-- Título de la cartera -->
+      <h1 class="cartera-title" id="carteraTitulo">CARTERA #1</h1>
+
+      <!-- Acciones de la cartera -->
+      <div class="cartera-actions">
+        <div class="tcea-display" id="tceaDisplay">TCEA: %</div>
+        <a href="#" class="btn-nuevo-registro" id="btnNuevoRegistro"
+          >Nuevo registro</a
+        >
+      </div>
+
+      <!-- Tabla de documentos -->
+      <div class="cartera-table-container">
+        <table class="cartera-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tipo de registro</th>
+              <th>Monto</th>
+              <th>Tasa</th>
+              <th>Tipo de tasa</th>
+              <th>Plazo de tasa (en días)</th>
+              <th>Período de capitalización (en días)</th>
+              <th>Fecha de vencimiento</th>
+              <th>Cliente / Beneficiario</th>
+              <th>Unidad monetaria</th>
+            </tr>
+          </thead>
+          <tbody id="carteraTableBody">
+            <!-- Los datos se cargarán dinámicamente con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination">
+        <button id="firstPage">&lt;&lt;</button>
+        <button id="prevPage">&lt;</button>
+        <span class="pagination-info" id="paginationInfo">1 to 10 of 50</span>
+        <button id="nextPage">&gt;</button>
+        <button id="lastPage">&gt;&gt;</button>
+        <select id="rowsPerPage">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="verCartera.js"></script>
+  </body>
 </html>

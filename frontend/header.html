@@ -1,0 +1,35 @@
+{% load static %}
+
+<header class="header">
+  <!-- Logo de la empresa -->
+  <div class="logo">
+    {% if user.is_authenticated %}
+    <a href="{% url 'start' %}"><h1>CarteraPro</h1></a>
+    {% else %}
+    <a href="{% url 'home' %}"><h1>CarteraPro</h1></a>
+    {% endif %}
+  </div>
+
+  <!-- Menú de navegación -->
+  <nav class="nav">
+    <ul>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'cuenta' %}">Mi cuenta</a></li>
+      <li><a href="/registroFactura.html">Registros</a></li>
+      <li><a href="{% url 'opcion_carteras' %}">Carteras</a></li>
+      <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+      {% else %}
+      <li><a href="#servicio">Servicios</a></li>
+      <li><a href="#testimonios">Testimonios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      {% endif %}
+    </ul>
+
+    {% if not user.is_authenticated %}
+    <!-- Botón de llamada a la acción solo para usuarios no autenticados -->
+    <a href="{% url 'registro' %}" class="btn-finanzas"
+      >Gestiona tus finanzas</a
+    >
+    {% endif %}
+  </nav>
+</header>

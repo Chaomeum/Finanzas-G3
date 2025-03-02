@@ -1,53 +1,51 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mi Cuenta - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
-        <link rel="stylesheet" href="account.css"> <!-- CSS específico para la página de login -->
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Cuenta - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Archivo CSS externo -->
+    <link rel="stylesheet" href="{% static 'account.css' %}" />
+    <!-- Archivo CSS externo -->
+  </head>
 
-    <body class="account-body">
-        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a></li>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="account.html">Mi cuenta</a></li>
-                    <li><a href="/registroFactura.html">Registros</a></li>
-                    <li><a href="/carteras.html">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
+  <body class="account-body">
+    <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+    {% include 'header.html' %}
 
-        <!-- Contenedor de la cuenta -->
-        <div class="account-container">
-            <div class="account-header">
-                <h2>Mi cuenta</h2>
-            </div>
-            <div class="account-box">
-                <div class="account-image">
-                    <img src="/Landing page/Images/perfil_mujer.png" alt="Imagen de usuario">
-                </div>
-                <div class="account-info">
-                    <div class="account-name">
-                        <p>Nombre Y Apellidos</p>
-                    </div>
-                </div>
-            </div>
-            <div class="account-cartera">
-                <a href="carteras.html" class="btn-cartera">Ver Carteras</a>
-            </div>
+    <!-- Contenedor de la cuenta -->
+    <div class="account-container">
+      <div class="account-header">
+        <h2>Mi cuenta</h2>
+      </div>
+      <div class="account-box">
+        <div class="account-image">
+          <img
+            src="{% static '/assets/Images/perfil_mujer.png' %}"
+            alt="Imagen de usuario"
+          />
         </div>
-    </body>
+        <div class="account-info">
+          <div class="account-name">
+            <p>{{ user.nombre }} {{ user.apellidos }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="account-cartera">
+        <a href="{% url 'opcion_carteras' %}" class="btn-cartera"
+          >Ver Carteras</a
+        >
+      </div>
+    </div>
+  </body>
 </html>
-

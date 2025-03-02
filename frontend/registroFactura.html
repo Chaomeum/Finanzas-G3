@@ -1,85 +1,105 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registrar Factura - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="login.css">
-        <link rel="stylesheet" href="registroDocumentos.css">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrar Factura - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Archivo CSS externo -->
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+    <!-- Archivo CSS específico para la página de login -->
+    <link rel="stylesheet" href="{% static 'registroDocumentos.css' %}" />
+    <!-- Archivo CSS específico para la página de registro de documentos -->
+  </head>
 
-    <body class="factura-body">
-        <!-- Encabezado de la página -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="account.html">Mi cuenta</a></li>
-                    <li><a href="#">Registros</a></li>
-                    <li><a href="carteras.html">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <h1 class="page-title">Registrar Nueva Factura</h1>
-        
-        <div class="main-container">
-            <!-- Botón para navegar a Registro de Letra de Cambio -->
-            <div class="navigation-area">
-                <a href="registroLetra.html" class="navigation-button">
-                    <div class="arrow-circle">
-                        &#8592;
-                    </div>
-                    <span>Registrar nueva letra de cambio</span>
-                </a>
-            </div>
-            
-            <!-- Contenedor del formulario de factura -->
-            <div class="documento-container">
-                <div class="documento-header">
-                    <h2>Factura</h2>
-                </div>
-                <div class="documento-box">
-                    <div class="documento-form">
-                        <form action="#" method="POST" id="facturaForm">
-                            <div class="form-group">
-                                <input type="number" id="montoFactura" name="montoFactura" placeholder="Monto de factura" required step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <input type="date" id="fechaEmision" name="fechaEmision" placeholder="Fecha de emisión" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="date" id="fechaPago" name="fechaPago" placeholder="Fecha de pago" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="cliente" name="cliente" placeholder="Cliente" required>
-                            </div>
-                            <div class="form-group">
-                                <select id="moneda" name="moneda" required>
-                                    <option value="" disabled selected>Unidad monetaria</option>
-                                    <option value="PEN">PEN</option>
-                                    <option value="USD">USD</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn-registrar">Registrar factura</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+  <body class="factura-body">
+    <!-- Encabezado de la página -->
+    {% include 'header.html' %}
+
+    <h1 class="page-title">Registrar Nueva Factura</h1>
+
+    <div class="main-container">
+      <!-- Botón para navegar a Registro de Letra de Cambio -->
+      <div class="navigation-area">
+        <a href="registroLetra.html" class="navigation-button">
+          <div class="arrow-circle">&#8592;</div>
+          <span>Registrar nueva letra de cambio</span>
+        </a>
+      </div>
+
+      <!-- Contenedor del formulario de factura -->
+      <div class="documento-container">
+        <div class="documento-header">
+          <h2>Factura</h2>
         </div>
-        
-        <script src="script.js"></script>
-        <script src="registroFactura.js"></script>
-    </body>
+        <div class="documento-box">
+          <div class="documento-form">
+            <form action="#" method="POST" id="facturaForm">
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="montoFactura"
+                  name="montoFactura"
+                  placeholder="Monto de factura"
+                  required
+                  step="0.01"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="date"
+                  id="fechaEmision"
+                  name="fechaEmision"
+                  placeholder="Fecha de emisión"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="date"
+                  id="fechaPago"
+                  name="fechaPago"
+                  placeholder="Fecha de pago"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  id="cliente"
+                  name="cliente"
+                  placeholder="Cliente"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <select id="moneda" name="moneda" required>
+                  <option value="" disabled selected>Unidad monetaria</option>
+                  <option value="PEN">PEN</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn-registrar">
+                  Registrar factura
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="registroFactura.js"></script>
+  </body>
 </html>

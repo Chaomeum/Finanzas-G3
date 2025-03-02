@@ -21,7 +21,7 @@ ESTADO_PAGO = [
 class Tasa(models.Model):
     valor_tasa = models.FloatField()
     tipo_tasa = models.CharField(max_length=10, choices=TIPO_TASA)    
-    capitalizacion = models.FloatField(required=False)
+    capitalizacion = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.valor_tasa} - {self.tipo_tasa} - {self.capitalizacion}"

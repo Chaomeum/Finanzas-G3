@@ -1,58 +1,57 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Carteras - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
-        <link rel="stylesheet" href="carteras.css"> <!-- CSS específico para la página de login -->
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carteras - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Archivo CSS externo -->
+    <link rel="stylesheet" href="{% static 'carteras.css' %}" />
+    <!-- Archivo CSS externo -->
+  </head>
 
-    <body class="cartera-body">
-        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a></li>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="/account.html">Mi cuenta</a></li>
-                    <li><a href="/registroFactura.html">Registros</a></li>
-                    <li><a href="/carteras.html">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
+  <body class="cartera-body">
+    <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+    {% include 'header.html' %}
 
-        <!-- Contenedor de la cuenta -->
-        <div class="cartera-container">
-            <div class="cartera-header">
-                <h2>Carteras</h2>
-            </div>
-            <div class="container-carteras">
-                <div class="cartera-box">
-                    <div class="cartera-image">
-                        <img src="/Landing page/Images/billetera.png" alt="Imagen de Cartera">
-                    </div>
-                    <div class="cartera-showcartera">
-                        <a href="/crearCartera.html" class="btn-cartera">Nueva Cartera</a>
-                    </div>
-                </div>
-                <div class="cartera-box">
-                    <div class="cartera-image">
-                        <img src="/Landing page/Images/carteras3.png" alt="Imagen de Carteras">
-                    </div>
-                    <div class="cartera-showcartera">
-                        <a href="/listaCarteras.html" class="btn-cartera">Ver Carteras</a>
-                    </div>
-                </div>
-            </div>            
-        </div>    
-    </body>
+    <!-- Contenedor de la cuenta -->
+    <div class="cartera-container">
+      <div class="cartera-header">
+        <h2>Carteras</h2>
+      </div>
+      <div class="container-carteras">
+        <div class="cartera-box">
+          <div class="cartera-image">
+            <img
+              src="{% static '/assets/Images/billetera.png' %}"
+              alt="Imagen de Cartera"
+            />
+          </div>
+          <div class="cartera-showcartera">
+            <a href="{% url 'crear_cartera' %}" class="btn-cartera">Nueva Cartera</a>
+          </div>
+        </div>
+        <div class="cartera-box">
+          <div class="cartera-image">
+            <img
+              src="{% static '/assets/Images/carteras3.png' %}"
+              alt="Imagen de Carteras"
+            />
+          </div>
+          <div class="cartera-showcartera">
+            <a href="{% url 'ver_carteras' %}" class="btn-cartera">Ver Carteras</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
-

@@ -1,63 +1,49 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registrarse - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
-        <link rel="stylesheet" href="signup.css"> <!-- CSS específico para la página de login -->
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrarse - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Reutilizamos el archivo CSS principal -->
+    <link rel="stylesheet" href="{% static 'signup.css' %}"">
+    <!-- CSS específico para la página de login -->
+  </head>
 
-    <body class="register-body">
-        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a></li>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="#">Mi cuenta</a></li>
-                    <li><a href="#">Registros</a></li>
-                    <li><a href="#">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <!-- Contenedor del formulario de login -->
-        <div class="register-container">
-            <div class="register-box">
-                <div class="register-header">
-                    <h2>Registro</h2>
-                </div>
-                <div class="register-form">
-                    <form action="#" method="POST">
-                        <div class="form-group">
-                            <input type="text" id="nombre" name="nombre" placeholder="Nombres" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="apellido" name="apellido" placeholder="Apellidos" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn-registrar">Registrar</button>
-                        </div>
-                        <div class="form-links">
-                            <a href="login.html" class="login-link">Ya tengo cuenta</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <body class="register-body">
+    <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+    {% include 'header.html' %}
+
+    <!-- Contenedor del formulario de login -->
+    <div class="register-container">
+      <div class="register-box">
+        <div class="register-header">
+          <h2>Registro</h2>
         </div>
-    </body>
+        <div class="register-form">
+          <form action="{% url 'registro' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              {{ form.as_p }}
+              <!-- Renderiza el formulario de registro -->
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn-registrar">Registrar</button>
+            </div>
+            <div class="form-links">
+              <a href="{% url 'login' %}" class="login-link">Ya tengo cuenta</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

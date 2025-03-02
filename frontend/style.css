@@ -1,7 +1,7 @@
 /* Definir la fuente HEAVITAS */
 @font-face {
     font-family: 'HEAVITAS';
-    src: url('Landing page/fonts/Heavitas.ttf') format('truetype');
+    src: url('assets/fonts/Heavitas.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }

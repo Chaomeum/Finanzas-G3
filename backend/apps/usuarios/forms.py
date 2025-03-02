@@ -3,14 +3,17 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Usuario
 
 # Formulario de registro personalizado
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+class CustomUserCreationForm(UserCreationForm):    
     nombre = forms.CharField(max_length=50, required=True)
     apellidos = forms.CharField(max_length=70, required=True)
+    username = forms.CharField(label='Nombre de usuario', max_length=150, required=True)    
+    email = forms.EmailField(required=True)
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmar contraseña', widget=forms.PasswordInput)
 
     class Meta:
         model = Usuario
-        fields = ['username', 'nombre', 'apellidos','email', 'password1', 'password2']
+        fields = ['nombre', 'apellidos', 'username', 'email',  'password1', 'password2']
     
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -36,6 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
 # Formulario de autenticación personalizado
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label='Email o nombre de usuario')
+    password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
 
     def clean(self):
         username = self.cleaned_data.get('username')

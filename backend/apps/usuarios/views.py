@@ -9,7 +9,7 @@ def home_view(request):
 
 # Vista de registro de usuario
 def signup_view(request):
-    # Si el método de la petición es POST, se procesa el formulario de registro
+    # Si el método de la peticiwón es POST, se procesa el formulario de registro
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -18,7 +18,7 @@ def signup_view(request):
                 user.set_password(form.cleaned_data['password1'])
                 user.save()            
                 login(request, user)
-                return redirect('home')  # Se debe redirigir a la URL de la página principal 'main' en lugar de 'home'
+                return redirect('login') # Se redirige a la URL de la página de inicio de sesión 'login'
             except IntegrityError:
                 return render(request, 'signup.html', 
                                 {'form': CustomUserCreationForm(), 
@@ -34,7 +34,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home') # Se debe redirigir a la URL de la página principal 'main' en lugar de 'home'
+            return redirect('start') # Se redirige a la URL de la página principal 'start'
         return render(request, 'login.html', {'form': form})
     # Si el método de la petición es GET, se muestra el formulario de inicio de sesión
     return render(request, 'login.html', {'form': CustomAuthenticationForm()})

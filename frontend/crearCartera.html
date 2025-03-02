@@ -1,110 +1,159 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Crear Cartera - CarteraPro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css"> <!-- Reutilizamos el archivo CSS principal -->
-        <link rel="stylesheet" href="crearCartera.css"> <!-- CSS específico para la página de login -->
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Cartera - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carga de archivos estáticos -->
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <!-- Archivo CSS externo -->
+    <link rel="stylesheet" href="{% static 'crearCartera.css' %}" />
+    <!-- Archivo CSS específico para la página de crearCartera -->
+  </head>
 
-    <body class="newCartera-body">
-        <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
-        <header class="header">
-            <!-- Logo de la empresa -->
-            <div class="logo">
-                <a href="landing.html"><h1>CarteraPro</h1></a></li>
-            </div>
-            
-            <!-- Menú de navegación -->
-            <nav class="nav">
-                <ul>
-                    <li><a href="#">Mi cuenta</a></li>
-                    <li><a href="#">Registros</a></li>
-                    <li><a href="/carteras.html">Carteras</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <!-- Contenedor del formulario de login -->
-        <div class="newCartera-container">
-            <div class="newCartera-box">
-                <div class="newCartera-header">
-                    <h2>Nueva Cartera</h2>
-                </div>
-                <div class="newCartera-form">
-                    <form action="#" method="POST">
-                        <div class="form-group">
-                            <select id="tipoTasa" name="tipoTasa" required>
-                                <option value="" disabled selected>Tipo de tasa</option>
-                                <option value="TNA">TNA</option>
-                                <option value="TEA">TEA</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="tasa" name="tasa" placeholder="Tasa %" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="plazoTasa" name="plazoTasa" placeholder="Plazo de tasa" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="capitalizacion" name="capitalizacion" placeholder="Capitalización" required>
-                        </div>
-                        <div class="form-group">
-                            <select id="moneda" name="moneda" required>
-                                <option value="" disabled selected>Unidad monetaria</option>
-                                <option value="PEN">PEN</option>
-                                <option value="USD">USD</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="documento-selector">
-                                <input type="text" id="documentosDisplay" placeholder="Seleccionar documentos" readonly>
-                                <button type="button" id="addDocumentoBtn" class="btn-add-documento">Agregar</button>
-                            </div>
-                            <div id="documentosList" class="documentos-list-container"></div>
-                            
-                            <!-- Modal para seleccionar documentos -->
-                            <div id="documentoModal" class="documento-modal">
-                                <div class="documento-modal-content">
-                                    <div class="documento-modal-header">
-                                        <h3>Seleccionar Documento</h3>
-                                        <span class="close-modal">&times;</span>
-                                    </div>
-                                    <div class="documento-modal-body">
-                                        <div class="documento-search">
-                                            <input type="text" id="modalSearch" placeholder="Buscar documento...">
-                                        </div>
-                                        <div class="documento-options">
-                                            <!-- Aquí se llenarían dinámicamente los documentos desde la base de datos -->
-                                            <div class="documento-option" data-id="1" data-type="Factura" data-number="F001-123">
-                                                Factura #F001-123
-                                            </div>
-                                            <div class="documento-option" data-id="2" data-type="Letra" data-number="L002-456">
-                                                Letra de cambio #L002-456
-                                            </div>
-                                            <div class="documento-option" data-id="3" data-type="Factura" data-number="F001-789">
-                                                Factura #F001-789
-                                            </div>
-                                            <!-- Más opciones aquí -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Campo oculto para enviar los IDs de documentos -->
-                            <input type="hidden" id="documentosIds" name="documentos" value="">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn-registrarCartera">Registrar cartera</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <body class="newCartera-body">
+    <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
+    {% include 'header.html' %}
+
+    <!-- Contenedor del formulario de login -->
+    <div class="newCartera-container">
+      <div class="newCartera-box">
+        <div class="newCartera-header">
+          <h2>Nueva Cartera</h2>
         </div>
-        <script src="/crearCartera.js"></script>
-    </body>
+        <div class="newCartera-form">
+          <form action="#" method="POST">
+            <div class="form-group">
+              <select id="tipoTasa" name="tipoTasa" required>
+                <option value="" disabled selected>Tipo de tasa</option>
+                <option value="TNA">TNA</option>
+                <option value="TEA">TEA</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="tasa"
+                name="tasa"
+                placeholder="Tasa %"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="plazoTasa"
+                name="plazoTasa"
+                placeholder="Plazo de tasa"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="text"
+                id="capitalizacion"
+                name="capitalizacion"
+                placeholder="Capitalización"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <select id="moneda" name="moneda" required>
+                <option value="" disabled selected>Unidad monetaria</option>
+                <option value="PEN">PEN</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div class="documento-selector">
+                <input
+                  type="text"
+                  id="documentosDisplay"
+                  placeholder="Seleccionar documentos"
+                  readonly
+                />
+                <button
+                  type="button"
+                  id="addDocumentoBtn"
+                  class="btn-add-documento"
+                >
+                  Agregar
+                </button>
+              </div>
+              <div id="documentosList" class="documentos-list-container"></div>
+
+              <!-- Modal para seleccionar documentos -->
+              <div id="documentoModal" class="documento-modal">
+                <div class="documento-modal-content">
+                  <div class="documento-modal-header">
+                    <h3>Seleccionar Documento</h3>
+                    <span class="close-modal">&times;</span>
+                  </div>
+                  <div class="documento-modal-body">
+                    <div class="documento-search">
+                      <input
+                        type="text"
+                        id="modalSearch"
+                        placeholder="Buscar documento..."
+                      />
+                    </div>
+                    <div class="documento-options">
+                      <!-- Aquí se llenarían dinámicamente los documentos desde la base de datos -->
+                      <div
+                        class="documento-option"
+                        data-id="1"
+                        data-type="Factura"
+                        data-number="F001-123"
+                      >
+                        Factura #F001-123
+                      </div>
+                      <div
+                        class="documento-option"
+                        data-id="2"
+                        data-type="Letra"
+                        data-number="L002-456"
+                      >
+                        Letra de cambio #L002-456
+                      </div>
+                      <div
+                        class="documento-option"
+                        data-id="3"
+                        data-type="Factura"
+                        data-number="F001-789"
+                      >
+                        Factura #F001-789
+                      </div>
+                      <!-- Más opciones aquí -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campo oculto para enviar los IDs de documentos -->
+              <input
+                type="hidden"
+                id="documentosIds"
+                name="documentos"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn-registrarCartera">
+                Registrar cartera
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/crearCartera.js"></script>
+  </body>
 </html>
