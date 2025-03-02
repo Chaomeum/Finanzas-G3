@@ -22,8 +22,7 @@
       <div class="cartera-header">
         <h2>LISTA DE CARTERAS</h2>
       </div>
-
-      <!-- Tabla de carteras -->
+      
       <!-- Tabla de carteras -->
       <div class="lista-carteras-container">
         <table class="lista-carteras-table">
@@ -38,19 +37,27 @@
             {% for cartera in carteras %}
             <tr>
               <td class="id-column">{{ cartera.id }}</td>
-              <td class="nombre-column">{{ cartera.nombre }}</td>
-              <td class="opciones-column">
-                <!-- Se debe manejar dentro de ver_carteras sin redireccionar-->
-                <a
-                  href="{% url 'editar_cartera' cartera.id %}"
-                  class="btn-editar"
-                  >Editar</a
-                > 
-                <a
-                  href="{% url 'eliminar_cartera' cartera.id %}"
-                  class="btn-eliminar"
-                  >Eliminar</a
+              <td class="nombre-column">
+                <a href="{% url 'detalle_cartera' cartera.id %}"
+                  >{{ cartera.nombre }}</a
                 >
+              </td>
+              <td class="opciones-column">
+                <!-- Botón para abrir el modal de edición -->
+                <button
+                  class="btn-editar"
+                  onclick="openEditModal('{{ cartera.id }}', '{{ cartera.nombre }}', '{{ cartera.valor_tasa }}', '{{ cartera.tipo_tasa }}', '{{ cartera.capitalizacion }}')"
+                >
+                  Editar
+                </button>
+
+                <!-- Botón para abrir el modal de confirmación de eliminación -->
+                <button
+                  class="btn-eliminar"
+                  onclick="openDeleteModal('{{ cartera.id }}', '{{ cartera.nombre }}')"
+                >
+                  Eliminar
+                </button>
               </td>
             </tr>
             {% empty %}
@@ -62,6 +69,120 @@
         </table>
       </div>
     </div>
+    <!-- Modal para Editar Cartera -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+        <h2>Editar Cartera</h2>
+        <form id="cartera-form" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <select name="tipo_tasa" id="tipo_tasa" required>
+              <option value="TNA">TNA</option>
+              <option value="TEA">TEA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              id="tasa"
+              name="tasa"
+              placeholder="Tasa %"
+              value="{{ cartera.valor_tasa|default_if_none:'' }}"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              id="capitalizacion"
+              name="capitalizacion"
+              placeholder="Capitalización"
+              value="{{ cartera.capitalizacion|default_if_none:'' }}"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              placeholder="Nombre de la cartera"
+              value="{{ cartera.nombre|default_if_none:'' }}"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn-abrir">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Modal para Confirmar Eliminación -->
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <p>
+          Escribe el nombre de la cartera "<span id="deleteCarteraNombre"></span
+          >" para confirmar eliminación:
+        </p>
+        <input type="text" id="confirmDeleteNombre" />
+        <form id="deleteCarteraForm" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="deleteCarteraId" name="cartera_id" />
+          <button type="button" class="btn-eliminar" onclick="confirmDelete()">
+            Confirmar
+          </button>
+          <button type="button" class="btn-abrir" onclick="closeDeleteModal()">
+            Cancelar
+          </button>
+        </form>
+      </div>
+    </div>
+    <script>
+      function openEditModal(id, nombre, tasa, tipo_tasa, capitalizacion) {
+        document.getElementById("nombre").value = nombre;
+        document.getElementById("tasa").value = tasa;
+        document.getElementById("tipo_tasa").value = tipo_tasa;
+        document.getElementById("capitalizacion").value = capitalizacion;
+        document.getElementById(
+          "cartera-form"
+        ).action = `/start/carteras/editar/${id}/`;
+        document.getElementById("editModal").style.display = "block";
+      }
+
+      function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+
+      function openDeleteModal(id, nombre) {
+        document.getElementById(
+          "deleteCarteraForm"
+        ).action = `/start/carteras/eliminar/${id}/`;
+        document.getElementById("deleteCarteraNombre").innerText = nombre;
+        document.getElementById("confirmDeleteNombre").value = "";
+
+        document.getElementById("deleteCarteraId").value = id;
+        document.getElementById("deleteModal").style.display = "block";
+      }
+
+      function confirmDelete() {
+        const inputNombre = document.getElementById(
+          "confirmDeleteNombre"
+        ).value;
+        const carteraNombre = document.getElementById(
+          "deleteCarteraNombre"
+        ).innerText;
+        if (inputNombre === carteraNombre) {
+          document.getElementById("deleteCarteraForm").submit();
+        } else {
+          alert("El nombre ingresado no coincide.");
+        }
+      }
+
+      function closeDeleteModal() {
+        document.getElementById("deleteModal").style.display = "none";
+      }
+    </script>
 
     <!-- <script src="/listaCarteras.js"></script> -->
   </body>

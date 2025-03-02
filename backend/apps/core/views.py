@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CarteraDescuento, Letra, Factura
@@ -40,8 +40,7 @@ def crear_cartera(request):
             tipo_tasa=tipo_tasa,
             capitalizacion=capitalizacion
         )
-        cartera.save()
-        print(cartera)
+        cartera.save()        
         messages.success(request, "Cartera registrada exitosamente.")
         return redirect('start')  # Cambia esto por la vista deseada
 
@@ -53,12 +52,28 @@ def ver_carteras(request):
     return render(request, 'listaCarteras.html', {'carteras': carteras})
 
 @login_required
-def editar_cartera(request):
-    return render(request, 'editarCartera.html')
+def detalle_cartera(request, id):
+    cartera = CarteraDescuento.objects.get(id=id)
+    return render(request, 'verCartera.html', {'cartera': cartera})
 
 @login_required
-def eliminar_cartera(request):
-    return render(request, 'eliminarCartera.html')
+def editar_cartera(request, id):
+    cartera = get_object_or_404(CarteraDescuento, id=id)
+    if request.method == "POST":        
+        cartera.nombre = request.POST.get("nombre")        
+        cartera.valor_tasa = request.POST.get("tasa")
+        cartera.tipo_tasa = request.POST["tipo_tasa"]
+        cartera.capitalizacion = float(request.POST["capitalizacion"])
+        cartera.save()
+    return redirect("ver_carteras")
+    
+
+@login_required
+def eliminar_cartera(request, id):
+    cartera = get_object_or_404(CarteraDescuento, id=id)
+    if request.method == "POST":
+        cartera.delete()
+    return redirect("ver_carteras")
 
 
 # Vistas de facturas y letras
