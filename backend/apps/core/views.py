@@ -49,7 +49,7 @@ def crear_cartera(request):
 
 @login_required
 def ver_carteras(request):   
-    carteras = CarteraDescuento.objects.all()
+    carteras = CarteraDescuento.objects.filter(usuario=request.user)
     return render(request, 'listaCarteras.html', {'carteras': carteras})
 
 @login_required
