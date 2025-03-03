@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 TIPO_TASA = [
     ('Efectiva', 'Efectiva'),
@@ -43,7 +44,7 @@ class CarteraDescuento(models.Model):
 
 class Letra(models.Model):
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    cartera = models.ForeignKey(CarteraDescuento, on_delete=models.CASCADE, null=True, blank=True)  # Relación con la cartera
+    cartera = models.ForeignKey(CarteraDescuento, on_delete=models.SET_NULL, null=True, blank=True)  # Relación con la cartera
     valor_nominal = models.FloatField()
     beneficiario = models.CharField(max_length=100)
     fecha_giro = models.DateField()
@@ -51,8 +52,7 @@ class Letra(models.Model):
     unidad_monetaria = models.CharField(max_length=3, choices=MONEDA_CHOICES, default='PEN')
     estado_pago = models.CharField(max_length=10, choices=ESTADO_PAGO, default='Pendiente')
 
-    def clean(self):
-        from django.core.exceptions import ValidationError
+    def clean(self):        
         if self.fecha_giro >= self.fecha_vencimiento:
             raise ValidationError('La fecha de giro debe ser anterior a la fecha de vencimiento.')
 
@@ -66,7 +66,7 @@ class Letra(models.Model):
 
 class Factura(models.Model):
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    cartera = models.ForeignKey(CarteraDescuento, on_delete=models.CASCADE, null=True, blank=True)  # Relación con la cartera
+    cartera = models.ForeignKey(CarteraDescuento, on_delete=models.SET_NULL, null=True, blank=True)  # Relación con la cartera
     monto_factura = models.FloatField()
     cliente = models.CharField(max_length=255)
     fecha_emision = models.DateField()
@@ -74,8 +74,7 @@ class Factura(models.Model):
     unidad_monetaria = models.CharField(max_length=3, choices=MONEDA_CHOICES, default='PEN')
     estado_pago = models.CharField(max_length=10, choices=ESTADO_PAGO, default='Pendiente')
 
-    def clean(self):
-        from django.core.exceptions import ValidationError
+    def clean(self):        
         if self.fecha_emision >= self.fecha_pago:
             raise ValidationError("La fecha de pago debe ser posterior a la fecha de emisión.")
 

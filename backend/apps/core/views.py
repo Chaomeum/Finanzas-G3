@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CarteraDescuento, Letra, Factura
 
@@ -28,8 +27,7 @@ def crear_cartera(request):
         try:
             valor_tasa = float(valor_tasa)
             capitalizacion = float(capitalizacion)
-        except ValueError:
-            messages.error(request, "Tasa y capitalización deben ser valores numéricos.")
+        except ValueError:            
             return render(request, "crearCartera.html")
 
         # Crear la cartera y guardarla en la base de datos
@@ -40,8 +38,7 @@ def crear_cartera(request):
             tipo_tasa=tipo_tasa,
             capitalizacion=capitalizacion
         )
-        cartera.save()        
-        messages.success(request, "Cartera registrada exitosamente.")
+        cartera.save()                
         return redirect('start')  # Cambia esto por la vista deseada
 
     return render(request, "crearCartera.html")
@@ -53,8 +50,17 @@ def ver_carteras(request):
 
 @login_required
 def detalle_cartera(request, id):
-    cartera = CarteraDescuento.objects.get(id=id)
-    return render(request, 'verCartera.html', {'cartera': cartera})
+    cartera = get_object_or_404(CarteraDescuento, id=id, usuario=request.user)
+    
+    # Obtener facturas y letras asociadas a la cartera
+    facturas = Factura.objects.filter(cartera=cartera)
+    letras = Letra.objects.filter(cartera=cartera)
+
+    return render(request, 'verCartera.html', {
+        'cartera': cartera,
+        'facturas': facturas,
+        'letras': letras
+    })
 
 @login_required
 def editar_cartera(request, id):
@@ -78,9 +84,76 @@ def eliminar_cartera(request, id):
 
 # Vistas de facturas y letras
 @login_required
-def crear_factura(request):
-    return render(request, 'registroFactura.html')
+def crear_factura(request, nombre_cartera=None):
+    carteras = CarteraDescuento.objects.filter(usuario=request.user)
+    cartera = None
+    if nombre_cartera:
+        cartera = get_object_or_404(CarteraDescuento, nombre=nombre_cartera, usuario=request.user)
+
+    if request.method == 'POST':
+        nombre_cartera = request.POST.get('nombre_cartera')        
+        cartera = get_object_or_404(CarteraDescuento, nombre=nombre_cartera, usuario=request.user)
+        monto_factura = request.POST.get('monto_factura')
+        fecha_emision = request.POST.get('fecha_emision')
+        fecha_pago = request.POST.get('fecha_pago')
+        cliente = request.POST.get('cliente')
+        unidad_monetaria = request.POST.get('unidad_monetaria')
+        estado_pago = request.POST.get('estado_pago')
+
+        if not monto_factura or not fecha_emision or not fecha_pago or not cliente:            
+            return render(request, 'registroFactura.html', {'nombre_cartera': nombre_cartera})
+
+        factura = Factura(
+            usuario=request.user,
+            cartera=cartera,
+            monto_factura=monto_factura,
+            fecha_emision=fecha_emision,
+            fecha_pago=fecha_pago,
+            cliente=cliente,
+            unidad_monetaria=unidad_monetaria,
+            estado_pago=estado_pago
+        )
+
+        factura.save()        
+        if cartera:
+            return redirect('detalle_cartera', id=cartera.id)  # Pasar el ID correctamente
+        return redirect('start')  # Si no hay cartera, redirigir a start
+
+    return render(request, 'registroFactura.html', {'carteras': carteras,'nombre_cartera': nombre_cartera})
 
 
-def crear_letra(request):
-    return render(request, 'registroLetra.html')
+def crear_letra(request, nombre_cartera=None):
+    carteras = CarteraDescuento.objects.filter(usuario=request.user)
+    cartera = None
+    if nombre_cartera:
+        cartera = get_object_or_404(CarteraDescuento, nombre=nombre_cartera, usuario=request.user)
+
+    if request.method == 'POST':
+        nombre_cartera = request.POST.get('nombre_cartera')        
+        cartera = get_object_or_404(CarteraDescuento, nombre=nombre_cartera, usuario=request.user)
+        valor_nominal = request.POST.get('valor_nominal')
+        fecha_giro = request.POST.get('fecha_pago')
+        fecha_vencimiento = request.POST.get('fecha_vencimiento')
+        beneficiario = request.POST.get('beneficiario')
+        unidad_monetaria = request.POST.get('moneda')
+        estado_pago = request.POST.get('estado_pago')
+
+        if not valor_nominal or not fecha_giro or not fecha_vencimiento or not beneficiario:            
+            return render(request, 'registroLetra.html', {'nombre_cartera': nombre_cartera})
+
+        letra = Letra(
+            usuario=request.user,
+            cartera=cartera,
+            valor_nominal=valor_nominal,
+            fecha_giro=fecha_giro,
+            fecha_vencimiento=fecha_vencimiento,
+            beneficiario=beneficiario,
+            unidad_monetaria=unidad_monetaria,
+            estado_pago=estado_pago
+        )
+
+        letra.save()        
+        if cartera:
+            return redirect('detalle_cartera', id=cartera.id)  # Pasar el ID correctamente
+        return redirect('start')
+    return render(request, 'registroLetra.html', {'carteras': carteras,'nombre_cartera': nombre_cartera})

@@ -18,7 +18,7 @@ def signup_view(request):
                 user.set_password(form.cleaned_data['password1'])
                 user.save()            
                 login(request, user)
-                return redirect('login') # Se redirige a la URL de la página de inicio de sesión 'login'
+                return redirect('start') # Se redirige a la URL de la página de inicio de sesión 'login'
             except IntegrityError:
                 return render(request, 'signup.html', 
                                 {'form': CustomUserCreationForm(), 

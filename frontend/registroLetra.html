@@ -35,12 +35,23 @@
         </div>
         <div class="documento-box">
           <div class="documento-form">
-            <form action="#" method="POST" id="letraForm">
+            <form method="POST" id="letraForm">
+              {% csrf_token %}
+              <div class="form-group">
+                <select id="nombreCartera" name="nombre_cartera" required>
+                    <option value="" disabled selected>Seleccione una cartera</option>
+                    {% for cartera in carteras %}
+                        <option value="{{ cartera.nombre }}" {% if cartera.nombre == nombre_cartera %}selected{% endif %}>
+                            {{ cartera.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+              </div>
               <div class="form-group">
                 <input
                   type="number"
                   id="valorNominal"
-                  name="valorNominal"
+                  name="valor_nominal"
                   placeholder="Valor Nominal"
                   required
                   step="0.01"
@@ -50,7 +61,7 @@
                 <input
                   type="date"
                   id="fechaPago"
-                  name="fechaPago"
+                  name="fecha_pago"
                   placeholder="Fecha de pago"
                   required
                 />
@@ -59,7 +70,7 @@
                 <input
                   type="date"
                   id="fechaVencimiento"
-                  name="fechaVencimiento"
+                  name="fecha_vencimiento"
                   placeholder="Fecha de vencimiento"
                   required
                 />
@@ -78,6 +89,13 @@
                   <option value="" disabled selected>Unidad monetaria</option>
                   <option value="PEN">PEN</option>
                   <option value="USD">USD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <select id="estadoPago" name="estado_pago" required>
+                  <option value="" disabled selected>Estado de pago</option>
+                  <option value="Pendiente" selected>Pendiente</option>
+                  <option value="Pagado">Pagado</option>
                 </select>
               </div>
               <div class="form-group">
