@@ -39,12 +39,12 @@
                 <a href="{% url 'detalle_cartera' cartera.id %}"
                   >{{ cartera.nombre }}</a
                 >
-              </td>
+              </td>              
               <td class="opciones-column">
                 <!-- Botón para abrir el modal de edición -->
                 <button
                   class="btn-editar"
-                  onclick="openEditModal('{{ cartera.id }}', '{{ cartera.nombre }}', '{{ cartera.valor_tasa }}', '{{ cartera.tipo_tasa }}', '{{ cartera.capitalizacion }}')"
+                  onclick="openEditModal('{{ cartera.id }}', '{{ cartera.nombre }}', '{{ cartera.valor_tasa }}', '{{ cartera.tipo_tasa }}', '{{ cartera.capitalizacion }}', '{{ cartera.fecha_descuento }}')"
                 >
                   Editar
                 </button>
@@ -65,6 +65,25 @@
             {% endfor %}
           </tbody>
         </table>
+      </div>
+    </div>
+    <div id="deleteModal" class="modal">      
+      <div class="modal-content">
+        <p>
+          Escribe el nombre de la cartera "<span id="deleteCarteraNombre"></span
+          >" para confirmar eliminación:
+        </p>
+        <input type="text" id="confirmDeleteNombre" />
+        <form id="deleteCarteraForm" method="POST">       
+          {% csrf_token %}   
+          <input type="hidden" id="deleteCarteraId" name="cartera_id" />
+          <button type="button" class="btn-eliminar" onclick="confirmDelete()">
+            Confirmar
+          </button>
+          <button type="button" class="btn-abrir" onclick="closeDeleteModal()">
+            Cancelar
+          </button>
+        </form>
       </div>
     </div>
     <!-- Modal para Editar Cartera -->
@@ -126,25 +145,7 @@
       </div>
     </div>
     <!-- Modal para Confirmar Eliminación -->
-    <div id="deleteModal" class="modal">
-      <div class="modal-content">
-        <p>
-          Escribe el nombre de la cartera "<span id="deleteCarteraNombre"></span
-          >" para confirmar eliminación:
-        </p>
-        <input type="text" id="confirmDeleteNombre" />
-        <form id="deleteCarteraForm" method="POST">
-          {% csrf_token %}
-          <input type="hidden" id="deleteCarteraId" name="cartera_id" />
-          <button type="button" class="btn-eliminar" onclick="confirmDelete()">
-            Confirmar
-          </button>
-          <button type="button" class="btn-abrir" onclick="closeDeleteModal()">
-            Cancelar
-          </button>
-        </form>
-      </div>
-    </div>
+    
     <script>
       function openEditModal(id, nombre, tasa, tipo_tasa, capitalizacion, fecha_descuento) {
         document.getElementById("nombre").value = nombre;
@@ -162,14 +163,13 @@
         document.getElementById("editModal").style.display = "none";
       }
 
-      function openDeleteModal(id, nombre) {
+      function openDeleteModal(id, nombre) {        
         document.getElementById(
           "deleteCarteraForm"
         ).action = `/start/carteras/eliminar/${id}/`;
         document.getElementById("deleteCarteraNombre").innerText = nombre;
-        document.getElementById("confirmDeleteNombre").value = "";
-
-        document.getElementById("deleteCarteraId").value = id;
+        document.getElementById("confirmDeleteNombre").value = "";        
+        document.getElementById("deleteCarteraId").value = id;        
         document.getElementById("deleteModal").style.display = "block";
       }
 

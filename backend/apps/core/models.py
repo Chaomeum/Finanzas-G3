@@ -82,7 +82,7 @@ class Factura(models.Model):
     comision_activacion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     gasto_administracion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     portes = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-
+    
     def clean(self):        
         if self.fecha_emision >= self.fecha_pago:
             raise ValidationError("La fecha de pago debe ser posterior a la fecha de emisión.")

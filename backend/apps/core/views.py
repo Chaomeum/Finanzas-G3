@@ -2,6 +2,7 @@ import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import CarteraDescuento, Letra, Factura
+from .utils import convertir_tna_a_tea, calcular_descuento_y_vr, calcular_tcea_individual, calcular_tcea_cartera
 
 # Vista de la página principal del sistema
 @login_required
@@ -75,14 +76,50 @@ def ver_carteras(request):
 @login_required
 def detalle_cartera(request, id):    
     cartera = get_object_or_404(CarteraDescuento, id=id, usuario=request.user)
-    # Obtener facturas y letras asociadas a la cartera
-    facturas = Factura.objects.filter(cartera=cartera)
-    letras = Letra.objects.filter(cartera=cartera)
 
+    # facturas = Factura.objects.filter(cartera=cartera)
+    # letras = Letra.objects.filter(cartera=cartera)
+    # Obtener facturas y letras asociadas a la cartera con estado pendiente
+    facturas_calculo = Factura.objects.filter(cartera=cartera, estado_pago='Pendiente')
+    letras_calculo = Letra.objects.filter(cartera=cartera, estado_pago='Pendiente')
+    # Determinar la TEA de la cartera
+    if cartera.tipo_tasa == 'TNA':
+        tea = convertir_tna_a_tea(cartera.valor_tasa, cartera.capitalizacion)
+    else:
+        tea = cartera.valor_tasa
+
+    # Preparar los datos para el calculo de TCEA
+    instrumentos = []
+
+    # Facturas
+    for factura in facturas_calculo:        
+        ds, vr = calcular_descuento_y_vr(
+            factura.monto_factura, tea,
+            factura.seguro_desgravamen, factura.comision_activacion,
+            factura.gasto_administracion, factura.portes
+        )        
+        dias = (factura.fecha_pago - factura.fecha_emision).days
+        tcea_factura = calcular_tcea_individual(factura.monto_factura, vr, dias)
+        factura.tcea = tcea_factura
+        instrumentos.append({"VF": factura.monto_factura, "VR": vr, "D": dias})        
+        
+
+    for letra in letras_calculo:
+        ds, vr = calcular_descuento_y_vr(letra.valor_nominal, tea, letra.seguro_desgravamen, letra.comision_activacion, letra.gasto_administracion, letra.portes)        
+        dias = (letra.fecha_vencimiento - letra.fecha_firma).days 
+        tcea_letra = calcular_tcea_individual(letra.valor_nominal, vr, dias)
+        letra.tcea = tcea_letra
+        instrumentos.append({"VF": letra.valor_nominal, "VR": vr, "D": dias})
+        
+
+    # Calcular la TCEA total de la cartera
+    tcea_cartera = calcular_tcea_cartera(instrumentos)   
+    
     return render(request, 'verCartera.html', {
         'cartera': cartera,             
-        'facturas': facturas,        
-        'letras': letras
+        'facturas': facturas_calculo,        
+        'letras': letras_calculo,
+        'tcea_cartera': tcea_cartera
     })
 
 
