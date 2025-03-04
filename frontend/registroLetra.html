@@ -58,20 +58,27 @@
                 />
               </div>
               <div class="form-group">
+                <select id="moneda" name="moneda" required>
+                  <option value="" disabled selected>Unidad monetaria</option>
+                  <option value="PEN">PEN</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+              <div class="form-group">
                 <input
                   type="date"
-                  id="fechaPago"
-                  name="fecha_pago"
-                  placeholder="Fecha de pago"
+                  id="fechaFirma"
+                  name="fecha_firma"
+                  placeholder="Fecha de firma"
                   required
                 />
-              </div>
+              </div>              
               <div class="form-group">
                 <input
                   type="date"
                   id="fechaVencimiento"
                   name="fecha_vencimiento"
-                  placeholder="Fecha de vencimiento"
+                  placeholder="Fecha de vencimiento"                  
                   required
                 />
               </div>
@@ -83,20 +90,53 @@
                   placeholder="Beneficiario"
                   required
                 />
-              </div>
-              <div class="form-group">
-                <select id="moneda" name="moneda" required>
-                  <option value="" disabled selected>Unidad monetaria</option>
-                  <option value="PEN">PEN</option>
-                  <option value="USD">USD</option>
-                </select>
-              </div>
+              </div>              
               <div class="form-group">
                 <select id="estadoPago" name="estado_pago" required>
                   <option value="" disabled selected>Estado de pago</option>
                   <option value="Pendiente" selected>Pendiente</option>
                   <option value="Pagado">Pagado</option>
                 </select>
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="seguroDesgravamen"
+                  name="seguro_desgravamen"                  
+                  placeholder="Seguro de desgravamen"
+                  required
+                  step="0.01"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="comisionActivacion"
+                  name="comision_activacion"
+                  placeholder="Comisión de activación"                  
+                  required
+                  step="0.01"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="gastoAdministrativo"
+                  name="gasto_administrativo"
+                  placeholder="Gasto administrativo"                                   
+                  required
+                  step="0.01"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="number"
+                  id="portes"
+                  name="portes"
+                  placeholder="Portes"                                                    
+                  required
+                  step="0.01"
+                />
               </div>
               <div class="form-group">
                 <button type="submit" class="btn-registrar">
@@ -117,7 +157,7 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
-    <script src="registroLetra.js"></script>
+    <!-- <script src="script.js"></script>
+    <script src="registroLetra.js"></script> -->
   </body>
 </html>

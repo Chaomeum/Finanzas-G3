@@ -24,7 +24,8 @@ class CarteraDescuento(models.Model):
     nombre = models.CharField(max_length=255, blank=True)  # Nombre de la cartera
     valor_tasa = models.FloatField(null=True)  # Tasa de descuento
     tipo_tasa = models.CharField(max_length=10, choices=TIPO_TASA, default='Efectiva')    
-    capitalizacion = models.FloatField(null=True, blank=True)    
+    capitalizacion = models.FloatField(null=True, blank=True)  
+    fecha_descuento = models.DateField(null=True, blank=True)  # Fecha de descuento      
         
     def calcular_tcea(self):
         """Cálculo de TCEA en tiempo real."""
@@ -45,15 +46,19 @@ class CarteraDescuento(models.Model):
 class Letra(models.Model):
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     cartera = models.ForeignKey(CarteraDescuento, on_delete=models.SET_NULL, null=True, blank=True)  # Relación con la cartera
-    valor_nominal = models.FloatField()
+    valor_nominal = models.DecimalField(max_digits=10, decimal_places=2)
     beneficiario = models.CharField(max_length=100)
-    fecha_giro = models.DateField()
-    fecha_vencimiento = models.DateField()
+    fecha_firma = models.DateField()
+    fecha_vencimiento = models.DateField()    
     unidad_monetaria = models.CharField(max_length=3, choices=MONEDA_CHOICES, default='PEN')
     estado_pago = models.CharField(max_length=10, choices=ESTADO_PAGO, default='Pendiente')
+    seguro_desgravamen = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)  # % sobre el VN
+    comision_activacion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    gasto_administracion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    portes = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def clean(self):        
-        if self.fecha_giro >= self.fecha_vencimiento:
+        if self.fecha_firma >= self.fecha_vencimiento:
             raise ValidationError('La fecha de giro debe ser anterior a la fecha de vencimiento.')
 
     def __str__(self):
@@ -67,12 +72,16 @@ class Letra(models.Model):
 class Factura(models.Model):
     usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     cartera = models.ForeignKey(CarteraDescuento, on_delete=models.SET_NULL, null=True, blank=True)  # Relación con la cartera
-    monto_factura = models.FloatField()
+    monto_factura = models.DecimalField(max_digits=10, decimal_places=2)
     cliente = models.CharField(max_length=255)
     fecha_emision = models.DateField()
     fecha_pago = models.DateField()
     unidad_monetaria = models.CharField(max_length=3, choices=MONEDA_CHOICES, default='PEN')
     estado_pago = models.CharField(max_length=10, choices=ESTADO_PAGO, default='Pendiente')
+    seguro_desgravamen = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)  # % sobre el VN
+    comision_activacion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    gasto_administracion = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    portes = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def clean(self):        
         if self.fecha_emision >= self.fecha_pago:
