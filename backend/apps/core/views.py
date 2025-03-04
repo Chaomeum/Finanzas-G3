@@ -1,10 +1,31 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import CarteraDescuento, Letra, Factura
 
 # Vista de la página principal del sistema
+@login_required
 def start(request):
-    return render(request, 'start.html')
+    # Obtener las carteras del usuario actual
+    carteras = CarteraDescuento.objects.filter(usuario=request.user)
+    
+    # Crear listas para nombres y TCEAs
+    # Combinar nombre y tipo de tasa para el eje X
+    nombres_carteras = [f"{cartera.nombre} ({cartera.tipo_tasa})" for cartera in carteras]
+    tceas_carteras = [float(cartera.valor_tasa) for cartera in carteras]  # Asumiendo que valor_tasa es la TCEA
+    
+    # Limitar a 5 carteras para la visualización
+    if len(nombres_carteras) > 5:
+        nombres_carteras = nombres_carteras[:5]
+        tceas_carteras = tceas_carteras[:5]
+    
+    context = {
+        'nombres_carteras': json.dumps(nombres_carteras),
+        'tceas_carteras': json.dumps(tceas_carteras),
+    }
+
+    return render(request, 'start.html', context)
+
 
 # Vista de la cuenta de usuario
 @login_required

@@ -43,3 +43,8 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+def lista_carteras(request):
+    # Aquí iría la lógica para obtener las carteras
+    return render(request, 'listaCarteras.html')

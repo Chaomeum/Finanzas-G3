@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CarteraPro</title>
+    <title>Dashboard - CarteraPro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,14 +14,60 @@
     />
     <!-- Carga de archivos estáticos -->
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-    <!-- Archivo CSS externo -->
-    <link rel="stylesheet" href="{% static 'landing.css' %}" />
-    <!-- Archivo CSS externo -->
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}" />
+    <!-- Incluir Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
 
-  <body>
+  <body class="dashboard-body">
     <!-- Encabezado de la página -->
     {% include 'header.html' %}
+    
+    <!-- Contenido principal del dashboard -->
+    <div class="dashboard-container">
+      <h1 class="welcome-title">Bienvenid@!</h1>
+      
+      <div class="dashboard-content">
+        <!-- Panel izquierdo - Reporte de Carteras -->
+        <div class="dashboard-panel report-panel">
+          <div class="panel-header">
+            <h2>Reporte de Carteras</h2>
+          </div>
+          <div class="panel-content">
+            <div class="cartera-row">
+              <div class="cartera-name">Cartera 1</div>
+              <div class="cartera-tcea">TCEA:</div>
+            </div>
+            <div class="cartera-row">
+              <div class="cartera-name">Cartera 2</div>
+              <div class="cartera-tcea">TCEA:</div>
+            </div>
+            <div class="cartera-row">
+              <div class="cartera-name">Cartera 3</div>
+              <div class="cartera-tcea">TCEA:</div>
+            </div>
+            <div class="cartera-row">
+              <div class="cartera-name">Cartera 4</div>
+              <div class="cartera-tcea">TCEA:</div>
+            </div>
+            
+            <div class="panel-footer">
+              <a href="{% url 'ver_carteras' %}" class="btn-ver-carteras">Ver carteras</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Panel derecho - Gráfica TCEA -->
+        <div class="dashboard-panel chart-panel">
+          <div class="panel-header">
+            <h2>Tasas por cartera</h2>
+          </div>
+          <div class="panel-content">
+            <div id="grafico-tcea" style="width: 100%; height: 300px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -29,5 +75,43 @@
         <p>&copy; 2025 CarteraPro - Todos los derechos reservados</p>
       </div>
     </footer>
+    
+    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'dashboard.js' %}"></script>
+    
+    <!-- Script para crear el gráfico de TCEA -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Obtener los datos pasados desde Django
+        const nombresCarteras = JSON.parse('{{ nombres_carteras|safe|escapejs }}');
+        const tceasCarteras = JSON.parse('{{ tceas_carteras|safe|escapejs }}');
+
+        // Colores personalizados para cada barra
+        const colores = ['#FF5252', '#4CAF50', '#2196F3', '#FFC107', '#9C27B0'];
+
+        // Crear un array de objetos de trazado
+        const trace = {
+          x: nombresCarteras,
+          y: tceasCarteras,
+          type: 'bar',
+          marker: {
+            color: colores.slice(0, nombresCarteras.length)
+          }
+        };
+
+        // Opciones de diseño
+        const layout = {
+          title: 'TNA y TEA',
+          xaxis: { title: 'Carteras' },
+          yaxis: { title: 'Tasas (%)' },
+          margin: { t: 50, l: 50, r: 20, b: 50 },
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        // Crear el gráfico
+        Plotly.newPlot('grafico-tcea', [trace], layout);
+      });
+    </script>
   </body>
 </html>
