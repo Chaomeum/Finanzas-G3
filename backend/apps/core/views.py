@@ -40,6 +40,10 @@ def opcion_carteras(request):
     return render(request, 'carteras.html')
 
 @login_required
+def opcion_registros(request):
+    return render(request, 'registros.html')
+
+@login_required
 def crear_cartera(request):
     if request.method == 'POST':
         tipo_tasa = request.POST.get('tipo_tasa')
