@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static 'carteras.css' %}" />
     <!-- Archivo CSS externo -->
   </head>
-
+    
   <body class="cartera-body">
     <!-- Encabezado de la página - Reutilizamos la estructura del landing -->
     {% include 'header.html' %}
@@ -48,7 +48,7 @@
             />
           </div>
           <div class="cartera-showcartera">
-            <a href="{% url 'start' %}" class="btn-cartera">Ver Reporte</a>
+            <a href="{% url 'opcion_ver_registros' %}" class="btn-cartera">Ver Registros</a>
           </div>
         </div>
       </div>

@@ -1,0 +1,88 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ver Cartera - CarteraPro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'login.css' %}" />
+    <link rel="stylesheet" href="{% static 'verCartera.css' %}" />
+  </head>
+
+  <body class="cartera-body">
+    <!-- Encabezado de la página -->
+    {% include 'header.html' %}
+    {% csrf_token %}
+    <div class="cartera-container">
+      <!-- Título de la cartera -->
+      <h1 class="cartera-title" id="carteraTitulo">Registros</h1>
+
+      <!-- Tabla de documentos -->
+      <div class="cartera-table-container">
+        <table class="cartera-table">
+          <thead>
+            <tr>
+              <th>Tipo de registro</th>
+              <th>Estado de pago</th>
+              <th>Unidad monetaria</th>
+              <th>Monto / Valor Nominal</th>
+              <th>Fecha de emision</th>
+              <th>Fecha de vencimiento</th>
+              <th>Cliente / Beneficiario</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for factura in facturas %}
+            <tr>
+              <td>Factura</td>
+              <td>{{ factura.estado_pago }}</td>
+              <td>{{ factura.unidad_monetaria }}</td>
+              <td>{{ factura.monto_factura }}</td>
+              <td>{{ factura.fecha_emision }}</td>
+              <td>{{ factura.fecha_pago }}</td>
+              <td>{{ factura.cliente }}</td>
+            </tr>
+            {% endfor %}
+            {% for letra in letras %}
+            <tr>
+              <td>Letra</td>
+              <td>{{ letra.estado_pago }}</td>
+              <td>{{ letra.unidad_monetaria }}</td>
+              <td>{{ letra.valor_nominal }}</td>
+              <td>{{ letra.fecha_firma }}</td>
+              <td>{{ letra.fecha_vencimiento }}</td>
+              <td>{{ letra.beneficiario }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div class="pagination">
+        <button id="firstPage">&lt;&lt;</button>
+        <button id="prevPage">&lt;</button>
+        <span class="pagination-info" id="paginationInfo">1 to 10 of 50</span>
+        <button id="nextPage">&gt;</button>
+        <button id="lastPage">&gt;&gt;</button>
+        <select id="rowsPerPage">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- <script src="script.js"></script>
+    <script src="verCartera.js"></script> -->
+  </body>
+</html>
