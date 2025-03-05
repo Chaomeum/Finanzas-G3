@@ -45,7 +45,12 @@ def opcion_registros(request):
 
 @login_required
 def opcion_ver_registros(request):
-    return render(request, 'verRegistros.html')
+    facturas = Factura.objects.all()
+    letras = Letra.objects.all()
+    return render(request, 'verRegistros.html', {
+        'facturas': facturas,
+        'letras': letras
+    })
 
 @login_required
 def crear_cartera(request):
